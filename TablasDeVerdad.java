@@ -1,15 +1,19 @@
 import java.util.Scanner;
 import java.util.Arrays;
+
 class TablasDeVerdad
 {
 	public static void main(String[] args)
 	{
 		String funcion;
 		int[] prop = new int[28];
-		int propsize= prop.length,cont=0;
+		int cont=0;
 		boolean existe=false;
+
 		Scanner l = new Scanner(System.in);
+
 		funcion = l.nextLine();
+
 		for(int i=0;i<funcion.length();i++)
 		{
 			if (Character.isLetter(funcion.codePointAt(i)))
@@ -19,7 +23,7 @@ class TablasDeVerdad
 				System.out.printf("%c con codepoint ",funcion.codePointAt(i));
 				System.out.printf("%d%n",funcion.codePointAt(i));
 				//ps lo agrergo
-				while((cont<propsize)&&(!existe))
+				while((cont<prop.length)&&(!existe))
 				{
 					if(prop[cont]==funcion.codePointAt(i))
 					{
@@ -42,18 +46,21 @@ class TablasDeVerdad
 			}
 			
 		}
-		//ver las cletras rescatadas
+		//ver las letras rescatadas
+		int n0=0;
+		double n=0;
 		for (int i=0;i<prop.length;i++)
 		{
 			if(prop[i]!=0)
 			{
 				System.out.printf("%c ",prop[i]);
 				System.out.printf("%d%n",prop[i]);
+				n0++;
 			}
 		}
 		System.out.println();
+		//ordenarlas
 		Arrays.sort(prop);
-		//ordenadas
 		for (int i=0;i<prop.length;i++)
 		{
 			if(prop[i]!=0)
@@ -63,6 +70,44 @@ class TablasDeVerdad
 			}
 		}
 		System.out.println();
-		///
+
+		/// imprimir valores posibles
+		n = Math.pow(2,n0);
+		System.out.println("valores de verdad: "+ n);
+
+		// valores de verdad y false que tendria cada prop
+		int aux=(int)n/2,aux2cont=0;
+		boolean turnar=false;
+		for (int i=0;i<prop.length;i++)
+		{
+			if(prop[i]!=0)
+			{
+				System.out.println("aux: "+aux);
+				System.out.printf("%c\t",prop[i]);
+				for(int j=0;j<n;j++)
+				{
+					aux2cont++;
+					//System.out.print("aux2:"+aux2cont);
+					if(aux2cont>aux)
+					{
+						turnar = !turnar;
+						aux2cont=1;
+					}
+					if(turnar)// ps verdaderos
+					{
+						System.out.print("t\t");
+					}
+					else // ps falsos
+					{
+						System.out.print("f\t");
+					}						
+				}
+				System.out.println();
+				aux/=2;
+				aux2cont=0;
+				turnar = false;
+			}
+		}
+		System.out.println();
 	}
 }
