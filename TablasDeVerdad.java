@@ -76,13 +76,14 @@ class TablasDeVerdad
 		System.out.println("valores de verdad: "+ n);
 
 		// valores de verdad y false que tendria cada prop
-		int aux=(int)n/2,aux2cont=0;
+		int aux=(int)n/2,aux2cont=0,indiceletraAux=0;
 		boolean turnar=false;
+		boolean[][] valoresVerdad = new boolean[(int)n][n0];
 		for (int i=0;i<prop.length;i++)
 		{
 			if(prop[i]!=0)
 			{
-				System.out.println("aux: "+aux);
+				//System.out.println("aux: "+aux);
 				System.out.printf("%c\t",prop[i]);
 				for(int j=0;j<n;j++)
 				{
@@ -95,18 +96,31 @@ class TablasDeVerdad
 					}
 					if(turnar)// ps verdaderos
 					{
-						System.out.print("t\t");
+						//System.out.print("t\t");
+						valoresVerdad[j][indiceletraAux] = true;
 					}
 					else // ps falsos
 					{
-						System.out.print("f\t");
+						//System.out.print("f\t");
+						valoresVerdad[j][indiceletraAux] = false;
 					}						
 				}
-				System.out.println();
+				//System.out.println();
 				aux/=2;
 				aux2cont=0;
 				turnar = false;
+				indiceletraAux++;
 			}
+		}
+		System.out.println();
+		//valores en la matriz
+		for (int i=0; i<valoresVerdad.length;i++ )
+		{
+			for (int j=0;j<valoresVerdad[0].length;j++)
+			{
+				System.out.print(valoresVerdad[i][j]+"\t");
+			}
+			System.out.println();
 		}
 		System.out.println();
 	}
