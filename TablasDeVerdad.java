@@ -1,6 +1,17 @@
+/*=================================================
+#>= Institution: ITESM CSF
+#>= Function: 
+#>= Input: --
+#>= Output: 
+#>= Author: Roberto Gervacio ~~ Mx ~~
+#>= Start Data: 12-10-17
+#>= Last Update: 12-10-17
+#>= Aditional Comments: ---
+===================================================*/
+//Librerias
 import java.util.Scanner;
 import java.util.Arrays;
-
+//Inicio de la clase
 class TablasDeVerdad
 {
 	public static void main(String[] args)
@@ -10,9 +21,14 @@ class TablasDeVerdad
 		int cont=0;
 		boolean existe=false;
 
+		String caracteresPermitidos="()<->|&";
+
 		Scanner l = new Scanner(System.in);
 
 		funcion = l.nextLine();
+
+		//validar cadena
+		//validar solo haya caracteres permitidos
 
 		for(int i=0;i<funcion.length();i++)
 		{
@@ -59,7 +75,8 @@ class TablasDeVerdad
 			}
 		}
 		System.out.println();
-		//ordenarlas
+
+		//ordenarlas y verlas ordenadasd
 		Arrays.sort(prop);
 		for (int i=0;i<prop.length;i++)
 		{
@@ -123,5 +140,6 @@ class TablasDeVerdad
 			System.out.println();
 		}
 		System.out.println();
+
 	}
 }
