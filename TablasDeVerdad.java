@@ -21,29 +21,40 @@ class TablasDeVerdad
 		int cont=0;
 		boolean existe=false;
 
-		String caracteresPermitidos="()<->|&";
 
 		Scanner l = new Scanner(System.in);
 
-		funcion = l.nextLine();
 
-		//validar cadena
+		String caracteresPermitidos="()<->|&";
+		int[] caracteresPermitidosCC = new int[caracteresPermitidos.length()];
+		for (int i=0;i<caracteresPermitidos.length();i++){
+			System.out.printf("%d : %c %n",caracteresPermitidos.codePointAt(i),caracteresPermitidos.codePointAt(i));
+			caracteresPermitidosCC[i]=caracteresPermitidos.codePointAt(i);
+		}
+		
 		//validar solo haya caracteres permitidos
+		funcion = l.nextLine();
+		int parentesisAbiertos=0, parentesisCerrados=0;
+		for (int i=0;i<funcion.length();i++)
+		{
+			
+		}
 
+		//extraer solo las letras
 		for(int i=0;i<funcion.length();i++)
 		{
 			if (Character.isLetter(funcion.codePointAt(i)))
 			{
 				//es letra!
-				System.out.print("Letra detectada: ");
-				System.out.printf("%c con codepoint ",funcion.codePointAt(i));
-				System.out.printf("%d%n",funcion.codePointAt(i));
+				//System.out.print("Letra detectada: ");
+				//System.out.printf("%c con codepoint ",funcion.codePointAt(i));
+				//System.out.printf("%d%n",funcion.codePointAt(i));
 				//ps lo agrergo
 				while((cont<prop.length)&&(!existe))
 				{
 					if(prop[cont]==funcion.codePointAt(i))
 					{
-						//ya existe, ya no tiene caso comparar
+						//ya existe, ya no tiene caso seguir comparando
 						existe = !existe;//false para que exista
 					}
 					else if(prop[cont]==0)//no son iguales pero es 0?
@@ -62,9 +73,8 @@ class TablasDeVerdad
 			}
 			
 		}
-		//ver las letras rescatadas
+		//ver las letras rescatadas y contar cuantas fueron
 		int n0=0;
-		double n=0;
 		for (int i=0;i<prop.length;i++)
 		{
 			if(prop[i]!=0)
@@ -89,6 +99,7 @@ class TablasDeVerdad
 		System.out.println();
 
 		/// imprimir valores posibles
+		double n=0;
 		n = Math.pow(2,n0);
 		System.out.println("valores de verdad: "+ n);
 
@@ -98,7 +109,7 @@ class TablasDeVerdad
 		boolean[][] valoresVerdad = new boolean[(int)n][n0];
 		for (int i=0;i<prop.length;i++)
 		{
-			if(prop[i]!=0)
+			if(prop[i]!=0)// si hay algo en el arreglo
 			{
 				//System.out.println("aux: "+aux);
 				System.out.printf("%c\t",prop[i]);
