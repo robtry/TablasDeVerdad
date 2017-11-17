@@ -26,47 +26,168 @@ class TablasDeVerdad
 
 
 		String caracteresPermitidos="()<->|&abcdefghijklmnñopqrstuvwxyz";
+
 		int[] caracteresPermitidosCC = new int[caracteresPermitidos.length()];
 		for (int i=0;i<caracteresPermitidos.length();i++){
 			//System.out.printf("%d : %c %n",caracteresPermitidos.codePointAt(i),caracteresPermitidos.codePointAt(i));
 			caracteresPermitidosCC[i]=caracteresPermitidos.codePointAt(i);
 		}
 		
-		//validar solo haya caracteres permitidos
 		funcion = l.nextLine();
+
+		//validar solo haya caracteres permitidos simbolos y minisculas
 		int parentesisAbiertos=0, parentesisCerrados=0;
 		boolean valido=false, sehace=true;
 		for (int i=0;i<funcion.length();i++)
-		{
-			for (int j=0;j<caracteresPermitidosCC.length;j++) 
-			{
-				if((funcion.codePointAt(i)==caracteresPermitidosCC[j])&&!valido)
+		{ //recorriendo toda la cadena
+			if(sehace) // ver si vale la pena seguir comparando
+			{				
+				for (int j=0;j<caracteresPermitidosCC.length;j++) 
 				{
-					valido = true;
+					//ver si la letra actual es igual a una de las validas
+					if((funcion.codePointAt(i)==caracteresPermitidosCC[j])&&!valido)
+					{
+						valido = true; //ps si lo fue
+						if((funcion.codePointAt(i))==40)
+						{
+							parentesisAbiertos++;
+						}
+						else if(funcion.codePointAt(i)==41)
+						{
+							parentesisCerrados++;
+						}
+					}
+				}		
+				if(valido&&sehace)
+				{
+					//pues si existio, fue un caracter valido
+					//System.out.println("Si existio");
+					valido = false; //resetear para la siguiente vez
+					//sehace = true;
 				}
-			}			
-			if(valido&&sehace)
-			{
-				//System.out.println("Si existio");
-				valido = false;
-				sehace = true;
-			}
-			else
-			{					
-				//System.out.println("pinche cadena inválida");
-				sehace = false;////
+				else
+				{	
+					//ps no fue valido				
+					//System.out.println("pinche cadena inválida");
+					sehace = false;//// no se va a hacer!
+				}
 			}
 		}
 
 		if(sehace)
 		{
-			System.out.println("ps se hace");
+			//simbolos validos
+			System.out.println("ps podria hacerse todos los simbolos son validos");
+			// ahora validar que el numero de parentesis sea igual
+			if(parentesisCerrados==parentesisAbiertos)
+			{
+				System.out.println("todo bien con num de parentesis");
+				//validar tenga sintaxis correcta
+				/*
+				40 : ( 
+				41 : ) 
+				60 : < 
+				45 : - 
+				62 : > 
+				124 : | 
+				38 : & 
+				*/
+				//recorrer toda la cadena
+				for (int i=0;i<funcion.length();i++)
+				{
+					int letraAct= funcion.codePointAt(i);
+
+					//despues de estos no puede haber vacio u otro simbolo, lo estar al pricipio
+					//|,&,>,-
+					if( letraAct == 124|| //|
+						letraAct == 38 || //&
+						letraAct == 62 || //>
+						letraAct == 60 || //<
+						letraAct == 45) //-
+					{
+						//si es uno de esos simbolos
+						if(i==funcion.length()-1) //si es ultimo ya esta mal
+						{
+							System.out.println("error de sinxis simbolo al final");
+						}else//no esta al ultimo , pero.. despues hay simbolo?
+						{
+							int siguienteLetra = funcion.codePointAt(i+1);
+							//caso especial 1: <->
+							if(letraAct == 60)// <
+							{
+								//depues de < debe haber si o si ->
+								// ver si hay 2 espacios disponibles que iterar en la cadena
+								if((i+2)<funcion.length())
+								{
+									//puedo ver que pasa despues de <
+									System.out.println("puedo ver quien hay depues de <");
+									//ps lo hago
+									if((funcion.codePointAt(i+1))==45) //-
+									{
+										//okay solo falta ver el ultimo
+										if((funcion.codePointAt(i+2))==62)//>
+										{
+											System.out.println("simbolo valido");
+											//si ya todo bien no esta al final y es valido perola pregunta inicial era: depues hay un simbolo?
+											siguienteLetra = funcion.codePointAt(i+3);
+											if( siguienteLetra == 124|| //|
+												siguienteLetra == 38 || //&
+												siguienteLetra == 62 || //>
+												siguienteLetra == 60 || //<
+												siguienteLetra == 45) //-
+											{
+												//muy valido y todo pero hay un simbolo invalido
+												System.out.println("despues de <-> no puede haber simbolos");
+											}
+											else
+											{
+												//no hubo nada pero antes?
+												System.out.println("podria proceder falta ver que hay antes");
+
+											}
+
+
+										}
+										else
+										{
+											System.out.println("casi pero nah, falta > depues de <-");
+										}
+									}
+									else
+									{
+										//hay un <, pero el sig no es - no sirve entonces
+										System.out.println("no hay - despues de <");
+									}
+								}
+								else
+								{
+									// no me alcanza la cadena para ver
+									System.out.println("Ni si quiera puedo validar que < esta completo esto esta mas que mal!");
+								}
+							}//fin de ver que pasa si es: <->
+							//caso especial 2: ->
+
+
+
+						}//fin de else verificando que hay despues del simbol
+					}//if de simbolos, else pues no es caracter a checar por ahora no me importa
+				}//for para validacion de sintaxis
+
+			}//if de parentesis
+			else
+			{
+				//hay parentesis de mas o de menos
+				System.out.println("hay algo que no concuerda");
+			}
 		}
 		else
 		{
-			System.out.println("no se hace prro");
+			//hubo simbolos invalidos
+			System.out.println("no se hace prro de ninguna manerA");
 		}
 
+
+		/*
 		//extraer solo las letras
 		for(int i=0;i<funcion.length();i++)
 		{
@@ -125,7 +246,6 @@ class TablasDeVerdad
 		}
 		System.out.println();
 
-		/*
 
 		/// imprimir valores posibles
 		double n=0;
@@ -182,5 +302,5 @@ class TablasDeVerdad
 		System.out.println();
 		*/
 
-	}
-}
+	}// del main
+}// del class
