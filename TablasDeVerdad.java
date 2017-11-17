@@ -25,19 +25,46 @@ class TablasDeVerdad
 		Scanner l = new Scanner(System.in);
 
 
-		String caracteresPermitidos="()<->|&";
+		String caracteresPermitidos="()<->|&abcdefghijklmnñopqrstuvwxyz";
 		int[] caracteresPermitidosCC = new int[caracteresPermitidos.length()];
 		for (int i=0;i<caracteresPermitidos.length();i++){
-			System.out.printf("%d : %c %n",caracteresPermitidos.codePointAt(i),caracteresPermitidos.codePointAt(i));
+			//System.out.printf("%d : %c %n",caracteresPermitidos.codePointAt(i),caracteresPermitidos.codePointAt(i));
 			caracteresPermitidosCC[i]=caracteresPermitidos.codePointAt(i);
 		}
 		
 		//validar solo haya caracteres permitidos
 		funcion = l.nextLine();
 		int parentesisAbiertos=0, parentesisCerrados=0;
+		boolean valido=false, sehace=true;
 		for (int i=0;i<funcion.length();i++)
 		{
-			
+			for (int j=0;j<caracteresPermitidosCC.length;j++) 
+			{
+				if((funcion.codePointAt(i)==caracteresPermitidosCC[j])&&!valido)
+				{
+					valido = true;
+				}
+			}			
+			if(valido&&sehace)
+			{
+				//System.out.println("Si existio");
+				valido = false;
+				sehace = true;
+			}
+			else
+			{					
+				//System.out.println("pinche cadena inválida");
+				sehace = false;////
+			}
+		}
+
+		if(sehace)
+		{
+			System.out.println("ps se hace");
+		}
+		else
+		{
+			System.out.println("no se hace prro");
 		}
 
 		//extraer solo las letras
@@ -79,8 +106,8 @@ class TablasDeVerdad
 		{
 			if(prop[i]!=0)
 			{
-				System.out.printf("%c ",prop[i]);
-				System.out.printf("%d%n",prop[i]);
+				//System.out.printf("%c ",prop[i]);
+				//System.out.printf("%d%n",prop[i]);
 				n0++;
 			}
 		}
@@ -92,11 +119,13 @@ class TablasDeVerdad
 		{
 			if(prop[i]!=0)
 			{
-				System.out.printf("%c ",prop[i]);
-				System.out.printf("%d%n",prop[i]);
+				//System.out.printf("%c ",prop[i]);
+				//System.out.printf("%d%n",prop[i]);
 			}
 		}
 		System.out.println();
+
+		/*
 
 		/// imprimir valores posibles
 		double n=0;
@@ -151,6 +180,7 @@ class TablasDeVerdad
 			System.out.println();
 		}
 		System.out.println();
+		*/
 
 	}
 }
