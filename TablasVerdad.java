@@ -18,7 +18,7 @@ class TablasVerdad extends JFrame
 		ventanaGrafica.setVisible(true);
 	}
 	boolean modoPro = false;
-	String funcion;
+	String funcion="";
 	/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	~~~~~~~~~~~~~~~CREANDO LA INTEFAZ GRAFICA~~~~~~~~~~~~~~~~
 	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
@@ -141,17 +141,45 @@ class TablasVerdad extends JFrame
 
 
 		/* ==== Para arrancar ==== */
-			txtFuncion.setText("Comience a teclear");
-			txtFuncion.setEditable(false);
-			btnValidar.setEnabled(false);
-			btnCalcular.setEnabled(false);
-			deshabilitaOperadores();
+			modoCreativo();
 		/* ======================= */
 
 		/* ==== Agregar eventos a los controles ==== */
 			btnSalir.addActionListener(new salir());
 			btnChageMode.addActionListener(new cambiaModo());
-
+			btnNuevo.addActionListener(new Nuevo());
+			btnA.addActionListener(new Apress());
+			btnB.addActionListener(new Bpress());
+			btnC.addActionListener(new Cpress());
+			btnD.addActionListener(new Dpress());
+			btnE.addActionListener(new Epress());
+			btnF.addActionListener(new Fpress());
+			btnG.addActionListener(new Gpress());
+			btnH.addActionListener(new Hpress());
+			btnI.addActionListener(new Ipress());
+			btnJ.addActionListener(new Jpress());
+			btnK.addActionListener(new Kpress());
+			btnL.addActionListener(new Lpress());
+			btnM.addActionListener(new Mpress());
+			btnN.addActionListener(new Npress());
+			btnO.addActionListener(new Opress());
+			btnP.addActionListener(new Ppress());
+			btnQ.addActionListener(new Qpress());
+			btnR.addActionListener(new Rpress());
+			btnS.addActionListener(new Spress());
+			btnT.addActionListener(new Tpress());
+			btnU.addActionListener(new Upress());
+			btnV.addActionListener(new Vpress());
+			btnW.addActionListener(new Wpress());
+			btnX.addActionListener(new Xpress());
+			btnY.addActionListener(new Ypress());
+			btnZ.addActionListener(new Zpress());
+			btnOR.addActionListener(new ORpress());
+			btnAND.addActionListener(new ANDpress());
+			btnNOT.addActionListener(new NOTpress());
+			btnSSI.addActionListener(new SSIpress());
+			btnSE.addActionListener(new SEpress());
+			btnValidar.addActionListener(new Validacion());
 		/* ======================================== */
 	}
 	/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -161,31 +189,41 @@ class TablasVerdad extends JFrame
 	/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	~~~~~~~~~CREACIÓN DE MÉTODOS PARA LOS CONTROLES~~~~~~~~~~
 	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+	public class Validacion implements ActionListener
+	{
+		public void actionPerformed(ActionEvent e)
+		{
+
+		}
+	}
+
+	public class Nuevo implements ActionListener
+	{
+		public void actionPerformed(ActionEvent e)
+		{
+			if(modoPro)
+			{
+				modoProf();
+			}
+			else
+			{
+				modoCreativo();	
+			}
+		}
+	}
+
 	public class cambiaModo implements ActionListener
 	{
 		public void actionPerformed(ActionEvent e)
 		{
 			if(modoPro)//esta activado hay que quitarlo
 			{
-				txtFuncion.setText("Comience a teclear");
-				txtFuncion.setEditable(false);
-				btnValidar.setEnabled(false);
-				btnCalcular.setEnabled(false);
-				deshabilitaOperadores();
-				habilitaLetras();
-				lblModo.setText("Modo actual: CREATIVO        ");
+				modoCreativo();
 				modoPro = !modoPro;
 			}
 			else//desactivado hay que activarlo
 			{
-				deshabilitaLetras();
-				deshabilitaOperadores();
-				txtFuncion.setText("");
-				txtFuncion.setEditable(true);
-				txtFuncion.requestFocus();
-				btnValidar.setEnabled(true);
-				btnCalcular.setEnabled(true);
-				lblModo.setText("Modo actual: PROFESIONAL      ");
+				modoProf();
 				modoPro = !modoPro;
 			}
 		}
@@ -199,6 +237,373 @@ class TablasVerdad extends JFrame
 		}
 	}
 
+	public class Apress implements ActionListener
+	{
+		public void actionPerformed(ActionEvent e)
+		{
+			funcion += 'a';
+			txtFuncion.setText(funcion);
+			deshabilitaLetras();
+			habilitaOperadores();
+			btnValidar.setEnabled(true);
+		}
+	}
+
+	public class Bpress implements ActionListener
+	{
+		public void actionPerformed(ActionEvent e)
+		{
+			funcion += 'b';
+			txtFuncion.setText(funcion);
+			deshabilitaLetras();
+			habilitaOperadores();
+			btnValidar.setEnabled(true);
+		}
+	}
+
+	public class Cpress implements ActionListener
+	{
+		public void actionPerformed(ActionEvent e)
+		{
+			funcion += 'c';
+			txtFuncion.setText(funcion);
+			deshabilitaLetras();
+			habilitaOperadores();
+			btnValidar.setEnabled(true);
+		}
+	}
+
+	public class Dpress implements ActionListener
+	{
+		public void actionPerformed(ActionEvent e)
+		{
+			funcion += 'd';
+			txtFuncion.setText(funcion);
+			deshabilitaLetras();
+			habilitaOperadores();
+			btnValidar.setEnabled(true);
+		}
+	}
+
+	public class Epress implements ActionListener
+	{
+		public void actionPerformed(ActionEvent e)
+		{
+			funcion += 'e';
+			txtFuncion.setText(funcion);
+			deshabilitaLetras();
+			habilitaOperadores();
+			btnValidar.setEnabled(true);
+		}
+	}
+
+	public class Fpress implements ActionListener
+	{
+		public void actionPerformed(ActionEvent e)
+		{
+			funcion += 'f';
+			txtFuncion.setText(funcion);
+			deshabilitaLetras();
+			habilitaOperadores();
+			btnValidar.setEnabled(true);
+		}
+	}
+
+	public class Gpress implements ActionListener
+	{
+		public void actionPerformed(ActionEvent e)
+		{
+			funcion += 'g';
+			txtFuncion.setText(funcion);
+			deshabilitaLetras();
+			habilitaOperadores();
+			btnValidar.setEnabled(true);
+		}
+	}
+
+	public class Hpress implements ActionListener
+	{
+		public void actionPerformed(ActionEvent e)
+		{
+			funcion += 'h';
+			txtFuncion.setText(funcion);
+			deshabilitaLetras();
+			habilitaOperadores();
+			btnValidar.setEnabled(true);
+		}
+	}
+
+	public class Ipress implements ActionListener
+	{
+		public void actionPerformed(ActionEvent e)
+		{
+			funcion += 'i';
+			txtFuncion.setText(funcion);
+			deshabilitaLetras();
+			habilitaOperadores();
+			btnValidar.setEnabled(true);
+		}
+	}
+
+	public class Jpress implements ActionListener
+	{
+		public void actionPerformed(ActionEvent e)
+		{
+			funcion += 'j';
+			txtFuncion.setText(funcion);
+			deshabilitaLetras();
+			habilitaOperadores();
+			btnValidar.setEnabled(true);
+		}
+	}
+
+	public class Kpress implements ActionListener
+	{
+		public void actionPerformed(ActionEvent e)
+		{
+			funcion += 'k';
+			txtFuncion.setText(funcion);
+			deshabilitaLetras();
+			habilitaOperadores();
+			btnValidar.setEnabled(true);
+		}
+	}
+
+	public class Lpress implements ActionListener
+	{
+		public void actionPerformed(ActionEvent e)
+		{
+			funcion += 'l';
+			txtFuncion.setText(funcion);
+			deshabilitaLetras();
+			habilitaOperadores();
+			btnValidar.setEnabled(true);
+		}
+	}
+
+	public class Mpress implements ActionListener
+	{
+		public void actionPerformed(ActionEvent e)
+		{
+			funcion += 'm';
+			txtFuncion.setText(funcion);
+			deshabilitaLetras();
+			habilitaOperadores();
+			btnValidar.setEnabled(true);
+		}
+	}
+
+	public class Npress implements ActionListener
+	{
+		public void actionPerformed(ActionEvent e)
+		{
+			funcion += 'n';
+			txtFuncion.setText(funcion);
+			deshabilitaLetras();
+			habilitaOperadores();
+			btnValidar.setEnabled(true);
+		}
+	}
+
+	public class Opress implements ActionListener
+	{
+		public void actionPerformed(ActionEvent e)
+		{
+			funcion += 'o';
+			txtFuncion.setText(funcion);
+			deshabilitaLetras();
+			habilitaOperadores();
+			btnValidar.setEnabled(true);
+		}
+	}
+
+	public class Ppress implements ActionListener
+	{
+		public void actionPerformed(ActionEvent e)
+		{
+			funcion += 'p';
+			txtFuncion.setText(funcion);
+			deshabilitaLetras();
+			habilitaOperadores();
+			btnValidar.setEnabled(true);
+		}
+	}
+
+	public class Qpress implements ActionListener
+	{
+		public void actionPerformed(ActionEvent e)
+		{
+			funcion += 'q';
+			txtFuncion.setText(funcion);
+			deshabilitaLetras();
+			habilitaOperadores();
+			btnValidar.setEnabled(true);
+		}
+	}
+
+	public class Rpress implements ActionListener
+	{
+		public void actionPerformed(ActionEvent e)
+		{
+			funcion += 'r';
+			txtFuncion.setText(funcion);
+			deshabilitaLetras();
+			habilitaOperadores();
+			btnValidar.setEnabled(true);
+		}
+	}
+
+	public class Spress implements ActionListener
+	{
+		public void actionPerformed(ActionEvent e)
+		{
+			funcion += 's';
+			txtFuncion.setText(funcion);
+			deshabilitaLetras();
+			habilitaOperadores();
+			btnValidar.setEnabled(true);
+		}
+	}
+
+	public class Tpress implements ActionListener
+	{
+		public void actionPerformed(ActionEvent e)
+		{
+			funcion += 't';
+			txtFuncion.setText(funcion);
+			deshabilitaLetras();
+			habilitaOperadores();
+			btnValidar.setEnabled(true);
+		}
+	}
+
+	public class Upress implements ActionListener
+	{
+		public void actionPerformed(ActionEvent e)
+		{
+			funcion += 'u';
+			txtFuncion.setText(funcion);
+			deshabilitaLetras();
+			habilitaOperadores();
+			btnValidar.setEnabled(true);
+		}
+	}
+
+	public class Vpress implements ActionListener
+	{
+		public void actionPerformed(ActionEvent e)
+		{
+			funcion += 'v';
+			txtFuncion.setText(funcion);
+			deshabilitaLetras();
+			habilitaOperadores();
+			btnValidar.setEnabled(true);
+		}
+	}
+
+	public class Wpress implements ActionListener
+	{
+		public void actionPerformed(ActionEvent e)
+		{
+			funcion += 'w';
+			txtFuncion.setText(funcion);
+			deshabilitaLetras();
+			habilitaOperadores();
+			btnValidar.setEnabled(true);
+		}
+	}
+
+	public class Xpress implements ActionListener
+	{
+		public void actionPerformed(ActionEvent e)
+		{
+			funcion += 'x';
+			txtFuncion.setText(funcion);
+			deshabilitaLetras();
+			habilitaOperadores();
+			btnValidar.setEnabled(true);
+		}
+	}
+
+	public class Ypress implements ActionListener
+	{
+		public void actionPerformed(ActionEvent e)
+		{
+			funcion += 'y';
+			txtFuncion.setText(funcion);
+			deshabilitaLetras();
+			habilitaOperadores();
+			btnValidar.setEnabled(true);
+		}
+	}
+
+	public class Zpress implements ActionListener
+	{
+		public void actionPerformed(ActionEvent e)
+		{
+			funcion += 'z';
+			txtFuncion.setText(funcion);
+			deshabilitaLetras();
+			habilitaOperadores();
+			btnValidar.setEnabled(true);
+		}
+	}
+
+	public class ORpress implements ActionListener
+	{
+		public void actionPerformed(ActionEvent e)
+		{
+			funcion += '|';
+			txtFuncion.setText(funcion);
+			habilitaLetras();
+			deshabilitaOperadores();
+		}
+	}
+
+	public class ANDpress implements ActionListener
+	{
+		public void actionPerformed(ActionEvent e)
+		{
+			funcion += '&';
+			txtFuncion.setText(funcion);
+			habilitaLetras();
+			deshabilitaOperadores();
+		}
+	}
+
+	public class NOTpress implements ActionListener
+	{
+		public void actionPerformed(ActionEvent e)
+		{
+			funcion += '-';
+			txtFuncion.setText(funcion);
+			habilitaLetras();
+			deshabilitaOperadores();
+		}
+	}
+
+	public class SEpress implements ActionListener
+	{
+		public void actionPerformed(ActionEvent e)
+		{
+			funcion += "->";
+			txtFuncion.setText(funcion);
+			habilitaLetras();
+			deshabilitaOperadores();
+		}
+	}
+
+	public class SSIpress implements ActionListener
+	{
+		public void actionPerformed(ActionEvent e)
+		{
+			funcion += "<->";
+			txtFuncion.setText(funcion);
+			habilitaLetras();
+			deshabilitaOperadores();
+		}
+	}
+
 	/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	~~~~~~~FIN CREACIÓN DE MÉTODOS PARA LOS CONTROLES~~~~~~~~
 	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
@@ -206,10 +611,35 @@ class TablasVerdad extends JFrame
 	/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	~~~~~~~~~~~~~~~~~~~~MÉTODOS AUXILIARES~~~~~~~~~~~~~~~~~~~
 	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+		public  void modoCreativo()
+		{
+			txtFuncion.setText("Comience a teclear");
+			txtFuncion.setEditable(false);
+			btnValidar.setEnabled(false);
+			btnCalcular.setEnabled(false);
+			deshabilitaOperadores();
+			habilitaLetras();
+			lblModo.setText("Modo actual: CREATIVO        ");
+			funcion = "";
+		}
+
+		public void modoProf()
+		{
+			deshabilitaLetras();
+			deshabilitaOperadores();
+			txtFuncion.setText("");
+			txtFuncion.setEditable(true);
+			txtFuncion.requestFocus();
+			btnValidar.setEnabled(true);
+			btnCalcular.setEnabled(true);
+			lblModo.setText("Modo actual: PROFESIONAL      ");
+			funcion = "";
+		}
+
 		public void deshabilitaOperadores()
 		{
+			//btnNOT.setEnabled(false);
 			btnOR.setEnabled(false);
-			btnNOT.setEnabled(false);
 			btnAND.setEnabled(false);
 			btnSE .setEnabled(false);
 			btnSSI .setEnabled(false);
@@ -218,8 +648,8 @@ class TablasVerdad extends JFrame
 
 		public void habilitaOperadores()
 		{
+			//btnNOT.setEnabled(true);
 			btnOR.setEnabled(true);
-			btnNOT.setEnabled(true);
 			btnAND.setEnabled(true);
 			btnSE .setEnabled(true);
 			btnSSI .setEnabled(true);
@@ -228,6 +658,7 @@ class TablasVerdad extends JFrame
 
 		public void deshabilitaLetras()
 		{
+			btnNOT.setEnabled(false);
 			btnA.setEnabled(false);
 			btnB.setEnabled(false);
 			btnC.setEnabled(false);
@@ -258,6 +689,7 @@ class TablasVerdad extends JFrame
 
 		public void habilitaLetras()
 		{
+			btnNOT.setEnabled(true);
 			btnA.setEnabled(true);
 			btnB.setEnabled(true);
 			btnC.setEnabled(true);
