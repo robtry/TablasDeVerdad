@@ -12,13 +12,15 @@ import javax.swing.*;
 import java.awt.event.*;
 class TablasVerdad extends JFrame
 {
+	boolean modoPro = false, abiertoParent= false, opcionCerrar = false;
+	int nAbiertos=0, parentClosetoIgnore=0;
+	String funcion="";
+
 	public static void main(String[] args)
 	{
 		TablasVerdad ventanaGrafica = new TablasVerdad();
 		ventanaGrafica.setVisible(true);
 	}
-	boolean modoPro = false;
-	String funcion="";
 	/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	~~~~~~~~~~~~~~~CREANDO LA INTEFAZ GRAFICA~~~~~~~~~~~~~~~~
 	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
@@ -26,7 +28,7 @@ class TablasVerdad extends JFrame
 	JButton btnA, btnB, btnC, btnD, btnE, btnF, btnG, btnH, btnI, btnJ, btnK,
 			btnL, btnM, btnN, btnO, btnP, btnQ, btnR, btnS, btnT, btnU, btnV,
 			btnW, btnX, btnY, btnZ,// preposisiones
-			btnOR, btnAND, btnNOT, btnSE, btnSSI, btnParent, // operadores
+			btnOR, btnAND, btnNOT, btnSE, btnSSI, btnParent, btnOutParent, // operadores
 			btnChageMode,// modos
 			btnNuevo, btnValidar, btnCalcular, btnSalir; //acciones
 	JLabel lblModo;
@@ -105,11 +107,14 @@ class TablasVerdad extends JFrame
 			btnSE.setToolTipText("SI ENTONCES =>");
 			btnSSI = new JButton("<->");
 			btnSSI.setToolTipText("SI SOLO SI <=>");
-			btnParent = new JButton("( )");
-			btnParent.setToolTipText("PARÉNTESIS");
+			btnParent = new JButton("( ");
+			btnParent.setToolTipText("ABRIR PARÉNTESIS");
+			btnOutParent = new JButton(")");
+			btnOutParent.setToolTipText("SALIR DE PARENTESIS");
 			panelOperadores.add(btnNOT);panelOperadores.add(btnOR);
 			panelOperadores.add(btnAND);panelOperadores.add(btnSE);
 			panelOperadores.add(btnSSI);panelOperadores.add(btnParent);
+			panelOperadores.add(btnOutParent);
 		getContentPane().add(panelOperadores);
 		//panel acciones
 		panelAcciones = new JPanel();
@@ -142,6 +147,7 @@ class TablasVerdad extends JFrame
 
 		/* ==== Para arrancar ==== */
 			modoCreativo();
+			btnOutParent.setEnabled(false);
 		/* ======================= */
 
 		/* ==== Agregar eventos a los controles ==== */
@@ -179,6 +185,8 @@ class TablasVerdad extends JFrame
 			btnNOT.addActionListener(new NOTpress());
 			btnSSI.addActionListener(new SSIpress());
 			btnSE.addActionListener(new SEpress());
+			btnParent.addActionListener(new AbrirParent());
+			btnOutParent.addActionListener(new SalirParent());
 			btnValidar.addActionListener(new Validacion());
 		/* ======================================== */
 	}
@@ -207,7 +215,7 @@ class TablasVerdad extends JFrame
 			}
 			else
 			{
-				modoCreativo();	
+				modoCreativo();
 			}
 		}
 	}
@@ -529,7 +537,16 @@ class TablasVerdad extends JFrame
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			funcion += 'y';
+			abiertoParent = amIinsideAparent();
+			if(abiertoParent)
+			{
+				funcion = agregaInParent("y");
+
+			}
+			else
+			{
+				funcion += 'y';
+			}
 			txtFuncion.setText(funcion);
 			deshabilitaLetras();
 			habilitaOperadores();
@@ -541,7 +558,15 @@ class TablasVerdad extends JFrame
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			funcion += 'z';
+			abiertoParent = amIinsideAparent();
+			if(abiertoParent)
+			{
+				funcion = agregaInParent("z");
+			}
+			else
+			{
+				funcion += 'z';
+			}
 			txtFuncion.setText(funcion);
 			deshabilitaLetras();
 			habilitaOperadores();
@@ -553,7 +578,15 @@ class TablasVerdad extends JFrame
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			funcion += '|';
+			abiertoParent = amIinsideAparent();
+			if(abiertoParent)
+			{
+				funcion = agregaInParent("|");
+			}
+			else
+			{
+				funcion += '|';
+			}
 			txtFuncion.setText(funcion);
 			habilitaLetras();
 			deshabilitaOperadores();
@@ -564,7 +597,16 @@ class TablasVerdad extends JFrame
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			funcion += '&';
+			abiertoParent = amIinsideAparent();
+			if(abiertoParent)
+			{
+				funcion = agregaInParent("&");
+
+			}
+			else
+			{
+				funcion += '&';
+			}
 			txtFuncion.setText(funcion);
 			habilitaLetras();
 			deshabilitaOperadores();
@@ -575,7 +617,16 @@ class TablasVerdad extends JFrame
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			funcion += '-';
+			abiertoParent = amIinsideAparent();
+			if(abiertoParent)
+			{
+				funcion = agregaInParent("-");
+
+			}
+			else
+			{
+				funcion += '-';
+			}
 			txtFuncion.setText(funcion);
 			habilitaLetras();
 			deshabilitaOperadores();
@@ -586,7 +637,16 @@ class TablasVerdad extends JFrame
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			funcion += "->";
+			abiertoParent = amIinsideAparent();
+			if(abiertoParent)
+			{
+				funcion = agregaInParent("->");
+			}
+			else
+			{
+				funcion += "->";
+			}
+
 			txtFuncion.setText(funcion);
 			habilitaLetras();
 			deshabilitaOperadores();
@@ -597,10 +657,48 @@ class TablasVerdad extends JFrame
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			funcion += "<->";
+			abiertoParent = amIinsideAparent();
+			if(abiertoParent)
+			{
+				funcion = agregaInParent("<->");
+
+			}
+			else
+			{
+				funcion += "<->";
+			}
 			txtFuncion.setText(funcion);
 			habilitaLetras();
 			deshabilitaOperadores();
+		}
+	}
+
+	public class AbrirParent implements ActionListener
+	{
+		public void actionPerformed(ActionEvent e)
+		{
+			abiertoParent = amIinsideAparent();
+			if(abiertoParent)
+			{
+				funcion = agregaInParent("()");
+			}
+			else
+			{
+				funcion += "()";
+			}
+			txtFuncion.setText(funcion);
+			habilitaLetras();
+			deshabilitaOperadores();
+			parentClosetoIgnore++;
+			btnOutParent.setEnabled(true);
+		}
+	}
+
+	public class SalirParent implements ActionListener
+	{
+		public void actionPerformed(ActionEvent e)
+		{
+			parentClosetoIgnore--;
 		}
 	}
 
@@ -611,6 +709,45 @@ class TablasVerdad extends JFrame
 	/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	~~~~~~~~~~~~~~~~~~~~MÉTODOS AUXILIARES~~~~~~~~~~~~~~~~~~~
 	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+		public boolean amIinsideAparent()
+		{
+			boolean adentro=false;
+			if(parentClosetoIgnore == 0)
+			{
+				adentro = false;
+			}
+			else
+			{
+				adentro = true;	
+			}
+			return adentro;
+		}
+
+		public String agregaInParent(String cadenaAMeter)
+		{
+			String cadenaNueva="";
+			System.out.println("vale"+parentClosetoIgnore);
+			for(int i=0;i<funcion.length();i++)
+			{
+				if(i==funcion.length()-parentClosetoIgnore)
+				{
+					cadenaNueva += cadenaAMeter;
+					for (int j=1;j<=parentClosetoIgnore;j++)
+					{
+						cadenaNueva += ")"; // los de adentro
+					}
+				}
+				else
+				{
+					if(funcion.charAt(i)!=')')
+					{
+						cadenaNueva += funcion.charAt(i);
+					}
+				}
+			}
+			return cadenaNueva;
+		}
+
 		public  void modoCreativo()
 		{
 			txtFuncion.setText("Comience a teclear");
@@ -621,6 +758,8 @@ class TablasVerdad extends JFrame
 			habilitaLetras();
 			lblModo.setText("Modo actual: CREATIVO        ");
 			funcion = "";
+			parentClosetoIgnore = 0;
+			btnOutParent.setEnabled(false);
 		}
 
 		public void modoProf()
@@ -638,27 +777,25 @@ class TablasVerdad extends JFrame
 
 		public void deshabilitaOperadores()
 		{
-			//btnNOT.setEnabled(false);
 			btnOR.setEnabled(false);
 			btnAND.setEnabled(false);
-			btnSE .setEnabled(false);
-			btnSSI .setEnabled(false);
-			btnParent .setEnabled(false);
+			btnSE.setEnabled(false);
+			btnSSI.setEnabled(false);
+
 		}
 
 		public void habilitaOperadores()
 		{
-			//btnNOT.setEnabled(true);
 			btnOR.setEnabled(true);
 			btnAND.setEnabled(true);
 			btnSE .setEnabled(true);
 			btnSSI .setEnabled(true);
-			btnParent .setEnabled(true);
 		}
 
 		public void deshabilitaLetras()
 		{
 			btnNOT.setEnabled(false);
+			btnParent.setEnabled(false);
 			btnA.setEnabled(false);
 			btnB.setEnabled(false);
 			btnC.setEnabled(false);
@@ -690,6 +827,7 @@ class TablasVerdad extends JFrame
 		public void habilitaLetras()
 		{
 			btnNOT.setEnabled(true);
+			btnParent.setEnabled(true);
 			btnA.setEnabled(true);
 			btnB.setEnabled(true);
 			btnC.setEnabled(true);
