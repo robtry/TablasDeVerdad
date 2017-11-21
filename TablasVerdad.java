@@ -5,16 +5,16 @@
 #>= Output: 
 #>= Author: Roberto Gervacio ~~ Mx ~~
 #>= Start Data: 12-10-17
-#>= Last Update: 12-10-17
-#>= Aditional Comments: ---
+#>= Last Update: 21-10-17
+#>= Aditional Comments: El modo profesional aun es inestable
 ===================================================*/
 import javax.swing.*;
 import java.awt.event.*;
 class TablasVerdad extends JFrame
 {
-	boolean modoPro = false, abiertoParent= false, opcionCerrar = false;
-	int nAbiertos=0, parentClosetoIgnore=0;
-	String funcion="";
+	boolean modoPro = false, estoyAdentroDeParent = false;
+	int parentClosetoIgnore=0;
+	String funcion = "";
 
 	public static void main(String[] args)
 	{
@@ -537,8 +537,8 @@ class TablasVerdad extends JFrame
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			abiertoParent = amIinsideAparent();
-			if(abiertoParent)
+			estoyAdentroDeParent = amIinsideAparent();
+			if(estoyAdentroDeParent)
 			{
 				funcion = agregaInParent("y");
 
@@ -558,8 +558,8 @@ class TablasVerdad extends JFrame
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			abiertoParent = amIinsideAparent();
-			if(abiertoParent)
+			estoyAdentroDeParent = amIinsideAparent();
+			if(estoyAdentroDeParent)
 			{
 				funcion = agregaInParent("z");
 			}
@@ -578,8 +578,8 @@ class TablasVerdad extends JFrame
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			abiertoParent = amIinsideAparent();
-			if(abiertoParent)
+			estoyAdentroDeParent = amIinsideAparent();
+			if(estoyAdentroDeParent)
 			{
 				funcion = agregaInParent("|");
 			}
@@ -597,8 +597,8 @@ class TablasVerdad extends JFrame
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			abiertoParent = amIinsideAparent();
-			if(abiertoParent)
+			estoyAdentroDeParent = amIinsideAparent();
+			if(estoyAdentroDeParent)
 			{
 				funcion = agregaInParent("&");
 
@@ -617,8 +617,8 @@ class TablasVerdad extends JFrame
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			abiertoParent = amIinsideAparent();
-			if(abiertoParent)
+			estoyAdentroDeParent = amIinsideAparent();
+			if(estoyAdentroDeParent)
 			{
 				funcion = agregaInParent("-");
 
@@ -637,8 +637,8 @@ class TablasVerdad extends JFrame
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			abiertoParent = amIinsideAparent();
-			if(abiertoParent)
+			estoyAdentroDeParent = amIinsideAparent();
+			if(estoyAdentroDeParent)
 			{
 				funcion = agregaInParent("->");
 			}
@@ -657,8 +657,8 @@ class TablasVerdad extends JFrame
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			abiertoParent = amIinsideAparent();
-			if(abiertoParent)
+			estoyAdentroDeParent = amIinsideAparent();
+			if(estoyAdentroDeParent)
 			{
 				funcion = agregaInParent("<->");
 
@@ -677,8 +677,8 @@ class TablasVerdad extends JFrame
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			abiertoParent = amIinsideAparent();
-			if(abiertoParent)
+			estoyAdentroDeParent = amIinsideAparent();
+			if(estoyAdentroDeParent)
 			{
 				funcion = agregaInParent("()");
 			}
@@ -699,6 +699,10 @@ class TablasVerdad extends JFrame
 		public void actionPerformed(ActionEvent e)
 		{
 			parentClosetoIgnore--;
+			if(parentClosetoIgnore==0)
+			{
+				btnOutParent.setEnabled(false);
+			}
 		}
 	}
 
@@ -726,11 +730,12 @@ class TablasVerdad extends JFrame
 		public String agregaInParent(String cadenaAMeter)
 		{
 			String cadenaNueva="";
-			System.out.println("vale"+parentClosetoIgnore);
+			//System.out.println("vale: "+parentClosetoIgnore);
 			for(int i=0;i<funcion.length();i++)
 			{
 				if(i==funcion.length()-parentClosetoIgnore)
 				{
+					//System.out.println("entro en pos: " + i);
 					cadenaNueva += cadenaAMeter;
 					for (int j=1;j<=parentClosetoIgnore;j++)
 					{
@@ -739,7 +744,7 @@ class TablasVerdad extends JFrame
 				}
 				else
 				{
-					if(funcion.charAt(i)!=')')
+					if((funcion.charAt(i)!=')')||i<=(funcion.length()-parentClosetoIgnore))
 					{
 						cadenaNueva += funcion.charAt(i);
 					}
@@ -777,6 +782,10 @@ class TablasVerdad extends JFrame
 
 		public void deshabilitaOperadores()
 		{
+			if(parentClosetoIgnore != 0)
+			{
+				btnOutParent.setEnabled(false);
+			}
 			btnOR.setEnabled(false);
 			btnAND.setEnabled(false);
 			btnSE.setEnabled(false);
@@ -786,6 +795,7 @@ class TablasVerdad extends JFrame
 
 		public void habilitaOperadores()
 		{
+			
 			btnOR.setEnabled(true);
 			btnAND.setEnabled(true);
 			btnSE .setEnabled(true);
