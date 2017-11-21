@@ -249,11 +249,23 @@ class TablasVerdad extends JFrame
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			funcion += 'a';
+			estoyAdentroDeParent = amIinsideAparent();
+			if(estoyAdentroDeParent)
+			{
+				funcion = agregaInParent("a");
+			}
+			else
+			{
+				funcion += 'a';
+			}
 			txtFuncion.setText(funcion);
 			deshabilitaLetras();
 			habilitaOperadores();
 			btnValidar.setEnabled(true);
+			if(parentClosetoIgnore != 0)
+			{
+				btnOutParent.setEnabled(true);
+			}
 		}
 	}
 
@@ -261,11 +273,23 @@ class TablasVerdad extends JFrame
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			funcion += 'b';
+			estoyAdentroDeParent = amIinsideAparent();
+			if(estoyAdentroDeParent)
+			{
+				funcion = agregaInParent("b");
+			}
+			else
+			{
+				funcion += 'b';
+			}
 			txtFuncion.setText(funcion);
 			deshabilitaLetras();
 			habilitaOperadores();
 			btnValidar.setEnabled(true);
+			if(parentClosetoIgnore != 0)
+			{
+				btnOutParent.setEnabled(true);
+			}
 		}
 	}
 
@@ -273,11 +297,23 @@ class TablasVerdad extends JFrame
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			funcion += 'c';
+			estoyAdentroDeParent = amIinsideAparent();
+			if(estoyAdentroDeParent)
+			{
+				funcion = agregaInParent("c");
+			}
+			else
+			{
+				funcion += 'c';
+			}
 			txtFuncion.setText(funcion);
 			deshabilitaLetras();
 			habilitaOperadores();
 			btnValidar.setEnabled(true);
+			if(parentClosetoIgnore != 0)
+			{
+				btnOutParent.setEnabled(true);
+			}
 		}
 	}
 
@@ -285,11 +321,23 @@ class TablasVerdad extends JFrame
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			funcion += 'd';
+			estoyAdentroDeParent = amIinsideAparent();
+			if(estoyAdentroDeParent)
+			{
+				funcion = agregaInParent("d");
+			}
+			else
+			{
+				funcion += 'd';
+			}
 			txtFuncion.setText(funcion);
 			deshabilitaLetras();
 			habilitaOperadores();
 			btnValidar.setEnabled(true);
+			if(parentClosetoIgnore != 0)
+			{
+				btnOutParent.setEnabled(true);
+			}
 		}
 	}
 
@@ -297,11 +345,23 @@ class TablasVerdad extends JFrame
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			funcion += 'e';
+			estoyAdentroDeParent = amIinsideAparent();
+			if(estoyAdentroDeParent)
+			{
+				funcion = agregaInParent("e");
+			}
+			else
+			{
+				funcion += 'e';
+			}
 			txtFuncion.setText(funcion);
 			deshabilitaLetras();
 			habilitaOperadores();
 			btnValidar.setEnabled(true);
+			if(parentClosetoIgnore != 0)
+			{
+				btnOutParent.setEnabled(true);
+			}
 		}
 	}
 
@@ -309,11 +369,23 @@ class TablasVerdad extends JFrame
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			funcion += 'f';
+			estoyAdentroDeParent = amIinsideAparent();
+			if(estoyAdentroDeParent)
+			{
+				funcion = agregaInParent("f");
+			}
+			else
+			{
+				funcion += 'f';
+			}
 			txtFuncion.setText(funcion);
 			deshabilitaLetras();
 			habilitaOperadores();
 			btnValidar.setEnabled(true);
+			if(parentClosetoIgnore != 0)
+			{
+				btnOutParent.setEnabled(true);
+			}
 		}
 	}
 
@@ -321,11 +393,23 @@ class TablasVerdad extends JFrame
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			funcion += 'g';
+			estoyAdentroDeParent = amIinsideAparent();
+			if(estoyAdentroDeParent)
+			{
+				funcion = agregaInParent("g");
+			}
+			else
+			{
+				funcion += 'g';
+			}
 			txtFuncion.setText(funcion);
 			deshabilitaLetras();
 			habilitaOperadores();
 			btnValidar.setEnabled(true);
+			if(parentClosetoIgnore != 0)
+			{
+				btnOutParent.setEnabled(true);
+			}
 		}
 	}
 
@@ -333,11 +417,23 @@ class TablasVerdad extends JFrame
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			funcion += 'h';
+			estoyAdentroDeParent = amIinsideAparent();
+			if(estoyAdentroDeParent)
+			{
+				funcion = agregaInParent("h");
+			}
+			else
+			{
+				funcion += 'h';
+			}
 			txtFuncion.setText(funcion);
 			deshabilitaLetras();
 			habilitaOperadores();
 			btnValidar.setEnabled(true);
+			if(parentClosetoIgnore != 0)
+			{
+				btnOutParent.setEnabled(true);
+			}
 		}
 	}
 
@@ -345,11 +441,23 @@ class TablasVerdad extends JFrame
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			funcion += 'i';
+			estoyAdentroDeParent = amIinsideAparent();
+			if(estoyAdentroDeParent)
+			{
+				funcion = agregaInParent("i");
+			}
+			else
+			{
+				funcion += 'i';
+			}
 			txtFuncion.setText(funcion);
 			deshabilitaLetras();
 			habilitaOperadores();
 			btnValidar.setEnabled(true);
+			if(parentClosetoIgnore != 0)
+			{
+				btnOutParent.setEnabled(true);
+			}
 		}
 	}
 
@@ -357,11 +465,23 @@ class TablasVerdad extends JFrame
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			funcion += 'j';
+			estoyAdentroDeParent = amIinsideAparent();
+			if(estoyAdentroDeParent)
+			{
+				funcion = agregaInParent("j");
+			}
+			else
+			{
+				funcion += 'j';
+			}
 			txtFuncion.setText(funcion);
 			deshabilitaLetras();
 			habilitaOperadores();
 			btnValidar.setEnabled(true);
+			if(parentClosetoIgnore != 0)
+			{
+				btnOutParent.setEnabled(true);
+			}
 		}
 	}
 
@@ -369,11 +489,23 @@ class TablasVerdad extends JFrame
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			funcion += 'k';
+			estoyAdentroDeParent = amIinsideAparent();
+			if(estoyAdentroDeParent)
+			{
+				funcion = agregaInParent("k");
+			}
+			else
+			{
+				funcion += 'k';
+			}
 			txtFuncion.setText(funcion);
 			deshabilitaLetras();
 			habilitaOperadores();
 			btnValidar.setEnabled(true);
+			if(parentClosetoIgnore != 0)
+			{
+				btnOutParent.setEnabled(true);
+			}
 		}
 	}
 
@@ -381,11 +513,23 @@ class TablasVerdad extends JFrame
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			funcion += 'l';
+			estoyAdentroDeParent = amIinsideAparent();
+			if(estoyAdentroDeParent)
+			{
+				funcion = agregaInParent("l");
+			}
+			else
+			{
+				funcion += 'l';
+			}
 			txtFuncion.setText(funcion);
 			deshabilitaLetras();
 			habilitaOperadores();
 			btnValidar.setEnabled(true);
+			if(parentClosetoIgnore != 0)
+			{
+				btnOutParent.setEnabled(true);
+			}
 		}
 	}
 
@@ -393,11 +537,23 @@ class TablasVerdad extends JFrame
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			funcion += 'm';
+			estoyAdentroDeParent = amIinsideAparent();
+			if(estoyAdentroDeParent)
+			{
+				funcion = agregaInParent("m");
+			}
+			else
+			{
+				funcion += 'm';
+			}
 			txtFuncion.setText(funcion);
 			deshabilitaLetras();
 			habilitaOperadores();
 			btnValidar.setEnabled(true);
+			if(parentClosetoIgnore != 0)
+			{
+				btnOutParent.setEnabled(true);
+			}
 		}
 	}
 
@@ -405,11 +561,23 @@ class TablasVerdad extends JFrame
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			funcion += 'n';
+			estoyAdentroDeParent = amIinsideAparent();
+			if(estoyAdentroDeParent)
+			{
+				funcion = agregaInParent("n");
+			}
+			else
+			{
+				funcion += 'n';
+			}
 			txtFuncion.setText(funcion);
 			deshabilitaLetras();
 			habilitaOperadores();
 			btnValidar.setEnabled(true);
+			if(parentClosetoIgnore != 0)
+			{
+				btnOutParent.setEnabled(true);
+			}
 		}
 	}
 
@@ -417,11 +585,23 @@ class TablasVerdad extends JFrame
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			funcion += 'o';
+			estoyAdentroDeParent = amIinsideAparent();
+			if(estoyAdentroDeParent)
+			{
+				funcion = agregaInParent("o");
+			}
+			else
+			{
+				funcion += 'o';
+			}
 			txtFuncion.setText(funcion);
 			deshabilitaLetras();
 			habilitaOperadores();
 			btnValidar.setEnabled(true);
+			if(parentClosetoIgnore != 0)
+			{
+				btnOutParent.setEnabled(true);
+			}
 		}
 	}
 
@@ -429,11 +609,23 @@ class TablasVerdad extends JFrame
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			funcion += 'p';
+			estoyAdentroDeParent = amIinsideAparent();
+			if(estoyAdentroDeParent)
+			{
+				funcion = agregaInParent("p");
+			}
+			else
+			{
+				funcion += 'p';
+			}
 			txtFuncion.setText(funcion);
 			deshabilitaLetras();
 			habilitaOperadores();
 			btnValidar.setEnabled(true);
+			if(parentClosetoIgnore != 0)
+			{
+				btnOutParent.setEnabled(true);
+			}
 		}
 	}
 
@@ -441,11 +633,23 @@ class TablasVerdad extends JFrame
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			funcion += 'q';
+			estoyAdentroDeParent = amIinsideAparent();
+			if(estoyAdentroDeParent)
+			{
+				funcion = agregaInParent("q");
+			}
+			else
+			{
+				funcion += 'q';
+			}
 			txtFuncion.setText(funcion);
 			deshabilitaLetras();
 			habilitaOperadores();
 			btnValidar.setEnabled(true);
+			if(parentClosetoIgnore != 0)
+			{
+				btnOutParent.setEnabled(true);
+			}
 		}
 	}
 
@@ -453,11 +657,23 @@ class TablasVerdad extends JFrame
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			funcion += 'r';
+			estoyAdentroDeParent = amIinsideAparent();
+			if(estoyAdentroDeParent)
+			{
+				funcion = agregaInParent("r");
+			}
+			else
+			{
+				funcion += 'r';
+			}
 			txtFuncion.setText(funcion);
 			deshabilitaLetras();
 			habilitaOperadores();
 			btnValidar.setEnabled(true);
+			if(parentClosetoIgnore != 0)
+			{
+				btnOutParent.setEnabled(true);
+			}
 		}
 	}
 
@@ -465,11 +681,23 @@ class TablasVerdad extends JFrame
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			funcion += 's';
+			estoyAdentroDeParent = amIinsideAparent();
+			if(estoyAdentroDeParent)
+			{
+				funcion = agregaInParent("s");
+			}
+			else
+			{
+				funcion += 's';
+			}
 			txtFuncion.setText(funcion);
 			deshabilitaLetras();
 			habilitaOperadores();
 			btnValidar.setEnabled(true);
+			if(parentClosetoIgnore != 0)
+			{
+				btnOutParent.setEnabled(true);
+			}
 		}
 	}
 
@@ -477,11 +705,23 @@ class TablasVerdad extends JFrame
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			funcion += 't';
+			estoyAdentroDeParent = amIinsideAparent();
+			if(estoyAdentroDeParent)
+			{
+				funcion = agregaInParent("t");
+			}
+			else
+			{
+				funcion += 't';
+			}
 			txtFuncion.setText(funcion);
 			deshabilitaLetras();
 			habilitaOperadores();
 			btnValidar.setEnabled(true);
+			if(parentClosetoIgnore != 0)
+			{
+				btnOutParent.setEnabled(true);
+			}
 		}
 	}
 
@@ -489,11 +729,23 @@ class TablasVerdad extends JFrame
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			funcion += 'u';
+			estoyAdentroDeParent = amIinsideAparent();
+			if(estoyAdentroDeParent)
+			{
+				funcion = agregaInParent("u");
+			}
+			else
+			{
+				funcion += 'u';
+			}
 			txtFuncion.setText(funcion);
 			deshabilitaLetras();
 			habilitaOperadores();
 			btnValidar.setEnabled(true);
+			if(parentClosetoIgnore != 0)
+			{
+				btnOutParent.setEnabled(true);
+			}
 		}
 	}
 
@@ -501,11 +753,23 @@ class TablasVerdad extends JFrame
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			funcion += 'v';
+			estoyAdentroDeParent = amIinsideAparent();
+			if(estoyAdentroDeParent)
+			{
+				funcion = agregaInParent("v");
+			}
+			else
+			{
+				funcion += 'v';
+			}
 			txtFuncion.setText(funcion);
 			deshabilitaLetras();
 			habilitaOperadores();
 			btnValidar.setEnabled(true);
+			if(parentClosetoIgnore != 0)
+			{
+				btnOutParent.setEnabled(true);
+			}
 		}
 	}
 
@@ -513,11 +777,23 @@ class TablasVerdad extends JFrame
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			funcion += 'w';
+			estoyAdentroDeParent = amIinsideAparent();
+			if(estoyAdentroDeParent)
+			{
+				funcion = agregaInParent("w");
+			}
+			else
+			{
+				funcion += 'w';
+			}
 			txtFuncion.setText(funcion);
 			deshabilitaLetras();
 			habilitaOperadores();
 			btnValidar.setEnabled(true);
+			if(parentClosetoIgnore != 0)
+			{
+				btnOutParent.setEnabled(true);
+			}
 		}
 	}
 
@@ -525,11 +801,23 @@ class TablasVerdad extends JFrame
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			funcion += 'x';
+			estoyAdentroDeParent = amIinsideAparent();
+			if(estoyAdentroDeParent)
+			{
+				funcion = agregaInParent("x");
+			}
+			else
+			{
+				funcion += 'x';
+			}
 			txtFuncion.setText(funcion);
 			deshabilitaLetras();
 			habilitaOperadores();
 			btnValidar.setEnabled(true);
+			if(parentClosetoIgnore != 0)
+			{
+				btnOutParent.setEnabled(true);
+			}
 		}
 	}
 
@@ -541,7 +829,6 @@ class TablasVerdad extends JFrame
 			if(estoyAdentroDeParent)
 			{
 				funcion = agregaInParent("y");
-
 			}
 			else
 			{
@@ -551,6 +838,10 @@ class TablasVerdad extends JFrame
 			deshabilitaLetras();
 			habilitaOperadores();
 			btnValidar.setEnabled(true);
+			if(parentClosetoIgnore != 0)
+			{
+				btnOutParent.setEnabled(true);
+			}
 		}
 	}
 
@@ -571,6 +862,10 @@ class TablasVerdad extends JFrame
 			deshabilitaLetras();
 			habilitaOperadores();
 			btnValidar.setEnabled(true);
+			if(parentClosetoIgnore != 0)
+			{
+				btnOutParent.setEnabled(true);
+			}
 		}
 	}
 
@@ -690,7 +985,7 @@ class TablasVerdad extends JFrame
 			habilitaLetras();
 			deshabilitaOperadores();
 			parentClosetoIgnore++;
-			btnOutParent.setEnabled(true);
+			btnValidar.setEnabled(false);
 		}
 	}
 
@@ -795,7 +1090,10 @@ class TablasVerdad extends JFrame
 
 		public void habilitaOperadores()
 		{
-			
+			if(parentClosetoIgnore != 0)
+			{
+				btnOutParent.setEnabled(true);
+			}
 			btnOR.setEnabled(true);
 			btnAND.setEnabled(true);
 			btnSE .setEnabled(true);
