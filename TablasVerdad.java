@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.io.IOException;
+import java.util.Arrays;
 class TablasVerdad extends JFrame
 {
 	boolean modoPro = false, estoyAdentroDeParent = false;
@@ -34,7 +35,7 @@ class TablasVerdad extends JFrame
 			btnW, btnX, btnY, btnZ,// preposisiones
 			btnOR, btnAND, btnNOT, btnSE, btnSSI, btnParent, btnOutParent, // operadores
 			btnChageMode,// modos
-			btnNuevo, btnValidar, btnCalcular, btnSalir; //acciones
+			btnNuevo, btnCalcular, btnMostrar, btnSalir; //acciones
 	JLabel lblModo;
 	JTextField txtFuncion;
 	public TablasVerdad()
@@ -124,11 +125,11 @@ class TablasVerdad extends JFrame
 		panelAcciones = new JPanel();
 			panelAcciones.setBackground(new java.awt.Color(191, 191, 191));
 			btnNuevo = new JButton("Nuevo");
-			btnValidar = new JButton("Validar");
 			btnCalcular = new JButton("Calcular");
+			btnMostrar = new JButton("Mostrar");
 			panelAcciones.add(btnNuevo);
-			panelAcciones.add(btnValidar);
 			panelAcciones.add(btnCalcular);
+			panelAcciones.add(btnMostrar);
 		getContentPane().add(panelAcciones);
 
 		// panel modos
@@ -191,8 +192,8 @@ class TablasVerdad extends JFrame
 			btnSE.addActionListener(new SEpress());
 			btnParent.addActionListener(new AbrirParent());
 			btnOutParent.addActionListener(new SalirParent());
-			btnValidar.addActionListener(new Validacion());
-			//btnCalcular.addActionListener(new Calcular());
+			btnCalcular.addActionListener(new Validacion());
+			//btnMostrar.addActionListener(new Calcular());
 		/* ======================================== */
 	}
 	/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -209,40 +210,139 @@ class TablasVerdad extends JFrame
 			try
 			{
 				File archivo;
-				archivo = new File("Resultados.java");
+				archivo = new File("Resultados.txt");
 				archivo.createNewFile();
 				FileWriter escritor = new FileWriter(archivo);
 				PrintWriter pw = new PrintWriter(escritor);
-				String programa = "import javax.swing.*; %n";
-				programa += "import java.awt.event.*; %n";
-				programa += "import java.io.*;%n";
-				programa += "class Resultados extends JFrame %n"; 
-				programa += "{%n";
-				programa += "\tpublic static void main(String[] args)%n";
-				programa += "\t{%n";
-				programa += "\t\tResultado interfaz = new Resultado();%n";
-				programa += "\t\tinterfaz.setVisible(true);%n";
-				programa += "\t}";
-				programa += "%n\tpublic Resultados()%n\t{%n";
-				programa += "\t\tsetDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);%n";
-				programa += "\t\tsetResizable(false);%n";
-				programa += "\t\tsetSize(new java.awt.Dimension(300, 330));%n";
-				programa += "\t\tsetTitle(\"Resultado\");%n";
-				programa += "\t\tDefaultListModel<String> listModel = new DefaultListModel<>();%n";
-				/* ===Aqui va haber que iterar === */
-				programa += "\t\t\tlistModel.addElement(\"holo\");%n";
-				/* =============================== */
-				programa += "\t\tJList<String> list = new JList<>();%n";
-				programa += "\t\tlist.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);%n";
-				programa += "\t\tJScrollPane listScroller = new JScrollPane();%n";
-				programa += "\t\tlistScroller.setViewportView(list);%n";
-				programa += "\t\tlist.setModel(listModel);%n";
-				programa += "\t\tgetContentPane().add(listScroller);%n";
-				programa += "\t\tsetLocationRelativeTo(null);%n";
-				//programa += "\t\t%n";
-				programa += "\t}";
-				programa += "%n}";
-				pw.printf(programa);
+				String textExport = "";
+				/* === Reuperar letras ===*/
+					int[] prop = new int[28];// se guardaran las letars rescatadas
+					int cont=0;// auxiliar para iterar a prop[]
+					boolean existe=false;// aux para ver si la letra ya existe en prop[]
+					int n0=0;// numero de letras para saber las combinaiciones
+					double n=0;// 2^n
+					// solo letras
+					for(int i=0;i<funcion.length();i++)
+					{
+						if (Character.isLetter(funcion.codePointAt(i)))
+						{
+							//es letra!
+							//System.out.print("Letra detectada: ");
+							//ps veo si se puede agregar
+							while((cont<prop.length)&&(!existe))
+							{
+								if(prop[cont]==funcion.codePointAt(i))
+								{
+									//ya existe, ya no tiene caso seguir comparando
+									existe = !existe;//false para que exista y se ropa el while
+								}
+								else if(prop[cont]==0)//no son iguales okay, pero es 0?
+								{
+									//si es 0 esta vacio, no va a ser igual a vacio
+									//si habia algo ya paso, entonces debemos meterlo
+									prop[cont]=funcion.codePointAt(i);
+									existe = !existe; // para igual se salga
+								}
+								//no son igual y no es 0 entonces es una letra ya guardada
+								//continuemos
+								cont++;
+							}
+							cont=0;
+							existe = false;
+						}
+						
+					}
+					//contar letras rescatadas 
+					for (int i=0;i<prop.length;i++)
+					{
+						if(prop[i]!=0)
+						{
+							//System.out.printf("%c ",prop[i]);
+							//System.out.printf("%d%n",prop[i]);
+							n0++;
+						}
+					}
+					//ordenarlas 
+					Arrays.sort(prop);
+
+					/// calcular total de combinaciones
+					n = Math.pow(2,n0);
+
+					// valores de verdad y false que tendria cada prop
+					int aux=(int)n/2,aux2cont=0,indiceletraAux=0;
+					boolean turnar=false;
+					boolean[][] valoresVerdad = new boolean[(int)n][n0];
+
+					for (int i=0;i<prop.length;i++)
+					{
+						if(prop[i]!=0)// si hay algo en el arreglo
+						{
+							//ps quien es
+							//System.out.printf("%c\t",prop[i]);
+							pw.printf("%c\t",prop[i]);
+							textExport += "----";
+
+
+							for(int j=0;j<n;j++) // todas las posibilidades
+							{
+								aux2cont++;
+								//System.out.print("aux2:"+aux2cont);
+								if(aux2cont>aux)
+								{
+									turnar = !turnar;
+									aux2cont=1;
+								}
+								if(turnar)// ps verdaderos
+								{
+									//System.out.print("t\t");
+									valoresVerdad[j][indiceletraAux] = true;
+								}
+								else // ps falsos
+								{
+									//System.out.print("f\t");
+									valoresVerdad[j][indiceletraAux] = false;
+								}						
+							}
+							aux/=2;
+							aux2cont=0;
+							turnar = false;
+							indiceletraAux++;
+						}
+					}
+					//System.out.println();
+					pw.printf("|\t%s", funcion);
+					textExport += "----";
+					for (int i=0;i<funcion.length();i++)
+					{
+						textExport += "-"	;
+					}
+					textExport += "----";
+					pw.printf("%n%s",textExport);
+					pw.printf("%n");
+					//valores en la matriz
+					for (int i=0; i<valoresVerdad.length;i++ )
+					{
+						for (int j=0;j<valoresVerdad[0].length;j++)
+						{
+							//System.out.print(valoresVerdad[i][j]+"\t");
+							if(valoresVerdad[i][j]==true)
+							{
+								pw.printf("v\t");
+							}
+							else
+							{
+								pw.printf("f\t");
+							}
+						}
+						//System.out.println();
+						/*============================*/
+						boolean finalres = false;
+						/*============================*/
+						pw.printf("|\t%b%n%s%n",finalres,textExport);
+					}
+					//System.out.println();
+
+				/* ======================= */
 				escritor.close();
 			}
 			catch(IOException ev)
@@ -308,7 +408,7 @@ class TablasVerdad extends JFrame
 			txtFuncion.setText(funcion);
 			deshabilitaLetras();
 			habilitaOperadores();
-			btnValidar.setEnabled(true);
+			btnCalcular.setEnabled(true);
 			if(parentClosetoIgnore != 0)
 			{
 				btnOutParent.setEnabled(true);
@@ -332,7 +432,7 @@ class TablasVerdad extends JFrame
 			txtFuncion.setText(funcion);
 			deshabilitaLetras();
 			habilitaOperadores();
-			btnValidar.setEnabled(true);
+			btnCalcular.setEnabled(true);
 			if(parentClosetoIgnore != 0)
 			{
 				btnOutParent.setEnabled(true);
@@ -356,7 +456,7 @@ class TablasVerdad extends JFrame
 			txtFuncion.setText(funcion);
 			deshabilitaLetras();
 			habilitaOperadores();
-			btnValidar.setEnabled(true);
+			btnCalcular.setEnabled(true);
 			if(parentClosetoIgnore != 0)
 			{
 				btnOutParent.setEnabled(true);
@@ -380,7 +480,7 @@ class TablasVerdad extends JFrame
 			txtFuncion.setText(funcion);
 			deshabilitaLetras();
 			habilitaOperadores();
-			btnValidar.setEnabled(true);
+			btnCalcular.setEnabled(true);
 			if(parentClosetoIgnore != 0)
 			{
 				btnOutParent.setEnabled(true);
@@ -404,7 +504,7 @@ class TablasVerdad extends JFrame
 			txtFuncion.setText(funcion);
 			deshabilitaLetras();
 			habilitaOperadores();
-			btnValidar.setEnabled(true);
+			btnCalcular.setEnabled(true);
 			if(parentClosetoIgnore != 0)
 			{
 				btnOutParent.setEnabled(true);
@@ -428,7 +528,7 @@ class TablasVerdad extends JFrame
 			txtFuncion.setText(funcion);
 			deshabilitaLetras();
 			habilitaOperadores();
-			btnValidar.setEnabled(true);
+			btnCalcular.setEnabled(true);
 			if(parentClosetoIgnore != 0)
 			{
 				btnOutParent.setEnabled(true);
@@ -452,7 +552,7 @@ class TablasVerdad extends JFrame
 			txtFuncion.setText(funcion);
 			deshabilitaLetras();
 			habilitaOperadores();
-			btnValidar.setEnabled(true);
+			btnCalcular.setEnabled(true);
 			if(parentClosetoIgnore != 0)
 			{
 				btnOutParent.setEnabled(true);
@@ -476,7 +576,7 @@ class TablasVerdad extends JFrame
 			txtFuncion.setText(funcion);
 			deshabilitaLetras();
 			habilitaOperadores();
-			btnValidar.setEnabled(true);
+			btnCalcular.setEnabled(true);
 			if(parentClosetoIgnore != 0)
 			{
 				btnOutParent.setEnabled(true);
@@ -500,7 +600,7 @@ class TablasVerdad extends JFrame
 			txtFuncion.setText(funcion);
 			deshabilitaLetras();
 			habilitaOperadores();
-			btnValidar.setEnabled(true);
+			btnCalcular.setEnabled(true);
 			if(parentClosetoIgnore != 0)
 			{
 				btnOutParent.setEnabled(true);
@@ -524,7 +624,7 @@ class TablasVerdad extends JFrame
 			txtFuncion.setText(funcion);
 			deshabilitaLetras();
 			habilitaOperadores();
-			btnValidar.setEnabled(true);
+			btnCalcular.setEnabled(true);
 			if(parentClosetoIgnore != 0)
 			{
 				btnOutParent.setEnabled(true);
@@ -548,7 +648,7 @@ class TablasVerdad extends JFrame
 			txtFuncion.setText(funcion);
 			deshabilitaLetras();
 			habilitaOperadores();
-			btnValidar.setEnabled(true);
+			btnCalcular.setEnabled(true);
 			if(parentClosetoIgnore != 0)
 			{
 				btnOutParent.setEnabled(true);
@@ -572,7 +672,7 @@ class TablasVerdad extends JFrame
 			txtFuncion.setText(funcion);
 			deshabilitaLetras();
 			habilitaOperadores();
-			btnValidar.setEnabled(true);
+			btnCalcular.setEnabled(true);
 			if(parentClosetoIgnore != 0)
 			{
 				btnOutParent.setEnabled(true);
@@ -596,7 +696,7 @@ class TablasVerdad extends JFrame
 			txtFuncion.setText(funcion);
 			deshabilitaLetras();
 			habilitaOperadores();
-			btnValidar.setEnabled(true);
+			btnCalcular.setEnabled(true);
 			if(parentClosetoIgnore != 0)
 			{
 				btnOutParent.setEnabled(true);
@@ -620,7 +720,7 @@ class TablasVerdad extends JFrame
 			txtFuncion.setText(funcion);
 			deshabilitaLetras();
 			habilitaOperadores();
-			btnValidar.setEnabled(true);
+			btnCalcular.setEnabled(true);
 			if(parentClosetoIgnore != 0)
 			{
 				btnOutParent.setEnabled(true);
@@ -644,7 +744,7 @@ class TablasVerdad extends JFrame
 			txtFuncion.setText(funcion);
 			deshabilitaLetras();
 			habilitaOperadores();
-			btnValidar.setEnabled(true);
+			btnCalcular.setEnabled(true);
 			if(parentClosetoIgnore != 0)
 			{
 				btnOutParent.setEnabled(true);
@@ -668,7 +768,7 @@ class TablasVerdad extends JFrame
 			txtFuncion.setText(funcion);
 			deshabilitaLetras();
 			habilitaOperadores();
-			btnValidar.setEnabled(true);
+			btnCalcular.setEnabled(true);
 			if(parentClosetoIgnore != 0)
 			{
 				btnOutParent.setEnabled(true);
@@ -692,7 +792,7 @@ class TablasVerdad extends JFrame
 			txtFuncion.setText(funcion);
 			deshabilitaLetras();
 			habilitaOperadores();
-			btnValidar.setEnabled(true);
+			btnCalcular.setEnabled(true);
 			if(parentClosetoIgnore != 0)
 			{
 				btnOutParent.setEnabled(true);
@@ -716,7 +816,7 @@ class TablasVerdad extends JFrame
 			txtFuncion.setText(funcion);
 			deshabilitaLetras();
 			habilitaOperadores();
-			btnValidar.setEnabled(true);
+			btnCalcular.setEnabled(true);
 			if(parentClosetoIgnore != 0)
 			{
 				btnOutParent.setEnabled(true);
@@ -740,7 +840,7 @@ class TablasVerdad extends JFrame
 			txtFuncion.setText(funcion);
 			deshabilitaLetras();
 			habilitaOperadores();
-			btnValidar.setEnabled(true);
+			btnCalcular.setEnabled(true);
 			if(parentClosetoIgnore != 0)
 			{
 				btnOutParent.setEnabled(true);
@@ -764,7 +864,7 @@ class TablasVerdad extends JFrame
 			txtFuncion.setText(funcion);
 			deshabilitaLetras();
 			habilitaOperadores();
-			btnValidar.setEnabled(true);
+			btnCalcular.setEnabled(true);
 			if(parentClosetoIgnore != 0)
 			{
 				btnOutParent.setEnabled(true);
@@ -788,7 +888,7 @@ class TablasVerdad extends JFrame
 			txtFuncion.setText(funcion);
 			deshabilitaLetras();
 			habilitaOperadores();
-			btnValidar.setEnabled(true);
+			btnCalcular.setEnabled(true);
 			if(parentClosetoIgnore != 0)
 			{
 				btnOutParent.setEnabled(true);
@@ -812,7 +912,7 @@ class TablasVerdad extends JFrame
 			txtFuncion.setText(funcion);
 			deshabilitaLetras();
 			habilitaOperadores();
-			btnValidar.setEnabled(true);
+			btnCalcular.setEnabled(true);
 			if(parentClosetoIgnore != 0)
 			{
 				btnOutParent.setEnabled(true);
@@ -836,7 +936,7 @@ class TablasVerdad extends JFrame
 			txtFuncion.setText(funcion);
 			deshabilitaLetras();
 			habilitaOperadores();
-			btnValidar.setEnabled(true);
+			btnCalcular.setEnabled(true);
 			if(parentClosetoIgnore != 0)
 			{
 				btnOutParent.setEnabled(true);
@@ -860,7 +960,7 @@ class TablasVerdad extends JFrame
 			txtFuncion.setText(funcion);
 			deshabilitaLetras();
 			habilitaOperadores();
-			btnValidar.setEnabled(true);
+			btnCalcular.setEnabled(true);
 			if(parentClosetoIgnore != 0)
 			{
 				btnOutParent.setEnabled(true);
@@ -884,7 +984,7 @@ class TablasVerdad extends JFrame
 			txtFuncion.setText(funcion);
 			deshabilitaLetras();
 			habilitaOperadores();
-			btnValidar.setEnabled(true);
+			btnCalcular.setEnabled(true);
 			if(parentClosetoIgnore != 0)
 			{
 				btnOutParent.setEnabled(true);
@@ -908,7 +1008,7 @@ class TablasVerdad extends JFrame
 			txtFuncion.setText(funcion);
 			deshabilitaLetras();
 			habilitaOperadores();
-			btnValidar.setEnabled(true);
+			btnCalcular.setEnabled(true);
 			if(parentClosetoIgnore != 0)
 			{
 				btnOutParent.setEnabled(true);
@@ -1032,7 +1132,7 @@ class TablasVerdad extends JFrame
 			habilitaLetras();
 			deshabilitaOperadores();
 			parentClosetoIgnore++;
-			btnValidar.setEnabled(false);
+			btnCalcular.setEnabled(false);
 		}
 	}
 
@@ -1099,8 +1199,8 @@ class TablasVerdad extends JFrame
 		{
 			txtFuncion.setText("Comience a teclear");
 			txtFuncion.setEditable(false);
-			btnValidar.setEnabled(false);
 			btnCalcular.setEnabled(false);
+			btnMostrar.setEnabled(false);
 			deshabilitaOperadores();
 			habilitaLetras();
 			lblModo.setText("Modo actual: CREATIVO        ");
@@ -1116,8 +1216,8 @@ class TablasVerdad extends JFrame
 			txtFuncion.setText("");
 			txtFuncion.setEditable(true);
 			txtFuncion.requestFocus();
-			btnValidar.setEnabled(true);
 			btnCalcular.setEnabled(true);
+			btnMostrar.setEnabled(true);
 			lblModo.setText("Modo actual: PROFESIONAL      ");
 			funcion = "";
 		}
