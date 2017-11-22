@@ -6,17 +6,21 @@
 #>= Author: Roberto Gervacio ~~ Mx ~~
 #>= Start Data: 12-10-17
 #>= Last Update: 21-10-17
-#>= Aditional Comments: El modo profesional aun es inestable
+#>= Aditional Comments: El modo profesional aún es inestable
 ===================================================*/
 import javax.swing.*;
 import java.awt.event.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.io.IOException;
 class TablasVerdad extends JFrame
 {
 	boolean modoPro = false, estoyAdentroDeParent = false;
 	int parentClosetoIgnore=0;
 	String funcion = "";
 
-	public static void main(String[] args)
+	public static void main(String[] args) throws Exception
 	{
 		TablasVerdad ventanaGrafica = new TablasVerdad();
 		ventanaGrafica.setVisible(true);
@@ -188,6 +192,7 @@ class TablasVerdad extends JFrame
 			btnParent.addActionListener(new AbrirParent());
 			btnOutParent.addActionListener(new SalirParent());
 			btnValidar.addActionListener(new Validacion());
+			//btnCalcular.addActionListener(new Calcular());
 		/* ======================================== */
 	}
 	/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -201,7 +206,49 @@ class TablasVerdad extends JFrame
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-
+			try
+			{
+				File archivo;
+				archivo = new File("Resultados.java");
+				archivo.createNewFile();
+				FileWriter escritor = new FileWriter(archivo);
+				PrintWriter pw = new PrintWriter(escritor);
+				String programa = "import javax.swing.*; %n";
+				programa += "import java.awt.event.*; %n";
+				programa += "import java.io.*;%n";
+				programa += "class Resultados extends JFrame %n"; 
+				programa += "{%n";
+				programa += "\tpublic static void main(String[] args)%n";
+				programa += "\t{%n";
+				programa += "\t\tResultado interfaz = new Resultado();%n";
+				programa += "\t\tinterfaz.setVisible(true);%n";
+				programa += "\t}";
+				programa += "%n\tpublic Resultados()%n\t{%n";
+				programa += "\t\tsetDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);%n";
+				programa += "\t\tsetResizable(false);%n";
+				programa += "\t\tsetSize(new java.awt.Dimension(300, 330));%n";
+				programa += "\t\tsetTitle(\"Resultado\");%n";
+				programa += "\t\tDefaultListModel<String> listModel = new DefaultListModel<>();%n";
+				/* ===Aqui va haber que iterar === */
+				programa += "\t\t\tlistModel.addElement(\"holo\");%n";
+				/* =============================== */
+				programa += "\t\tJList<String> list = new JList<>();%n";
+				programa += "\t\tlist.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);%n";
+				programa += "\t\tJScrollPane listScroller = new JScrollPane();%n";
+				programa += "\t\tlistScroller.setViewportView(list);%n";
+				programa += "\t\tlist.setModel(listModel);%n";
+				programa += "\t\tgetContentPane().add(listScroller);%n";
+				programa += "\t\tsetLocationRelativeTo(null);%n";
+				//programa += "\t\t%n";
+				programa += "\t}";
+				programa += "%n}";
+				pw.printf(programa);
+				escritor.close();
+			}
+			catch(IOException ev)
+			{
+				ev.printStackTrace();
+			}
 		}
 	}
 
