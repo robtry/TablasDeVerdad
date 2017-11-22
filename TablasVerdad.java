@@ -5,8 +5,8 @@
 #>= Output: 
 #>= Author: Roberto Gervacio ~~ Mx ~~
 #>= Start Data: 12-10-17
-#>= Last Update: 21-10-17
-#>= Aditional Comments: El modo profesional aún es inestable
+#>= Last Update: 22-10-17
+#>= Aditional Comments: El modo profesional es solo una idea
 ===================================================*/
 import javax.swing.*;
 import java.awt.event.*;
@@ -20,9 +20,9 @@ import java.io.OutputStream;
 import java.util.Arrays;
 class TablasVerdad extends JFrame
 {
-	boolean modoPro = false, estoyAdentroDeParent = false;
+	boolean modoPro = false, estoyAdentroDeParent = false, sePuedeHacer = true;
 	int parentClosetoIgnore=0;
-	String funcion = "", os =System.getProperty("os.name");
+	String funcion = "", os =System.getProperty("os.name"), cadenaBooleana="";
 
 	public static void main(String[] args) throws Exception
 	{
@@ -210,6 +210,8 @@ class TablasVerdad extends JFrame
 	{
 		public void actionPerformed(ActionEvent e)
 		{
+			sePuedeHacer = true;
+			cadenaBooleana = "";
 			try
 			{
 				File archivo;
@@ -333,6 +335,10 @@ class TablasVerdad extends JFrame
 					textExport += "----";
 					for (int i=0;i<funcion.length();i++)
 					{
+						if(funcion.charAt(i)=='>' || funcion.charAt(i)=='<')
+						{
+							sePuedeHacer = false;
+						}
 						textExport += "----"	;
 					}
 					textExport += "------";
@@ -351,12 +357,50 @@ class TablasVerdad extends JFrame
 							{
 								pw.printf("%n\t\t\tpw.printf(\"f\\t\");");
 							}
+						/*============================*/
+							if(sePuedeHacer)
+							{
+								// si se pudo hacer
+								for(int k=0;k<funcion.length();k++)
+								{
+									if(Character.isLetter(funcion.codePointAt(k)))
+									{
+										cadenaBooleana += Boolean.toString(valoresVerdad[i][j]);
+									}
+									else if(funcion.charAt(k)=='&')
+									{
+										cadenaBooleana += "&&";
+									}
+									else if(funcion.charAt(k)=='|')
+									{
+										cadenaBooleana += "||";
+									}
+									else if(funcion.charAt(k)=='-')
+									{
+										cadenaBooleana += "!";
+									}
+									else // debe de ser parentesis
+									{
+										cadenaBooleana += funcion.charAt(k);
+									}
+
+								}
+							}
+							//else ps no se va a poder hacer :(
+							
+							
+						/*============================*/
 						}
-						//System.out.println();
-						/*============================*/
-						String cadenaBooleana = "(true && true)";
-						/*============================*/
-						pw.printf("%n\t\t\tpw.printf(\"|\\t%%b%%n%s%%n\",%s);",textExport,cadenaBooleana);
+						//aqui va un salto de linea
+						if(sePuedeHacer)
+						{
+							pw.printf("%n\t\t\tpw.printf(\"|\\t%%b%%n%s%%n\",%s);",textExport,cadenaBooleana);
+						}
+						else
+						{
+							pw.printf("%n\t\t\tpw.printf(\"|\\t%%n%s%%n\");",textExport);
+						}
+
 					}
 					//System.out.println();
 

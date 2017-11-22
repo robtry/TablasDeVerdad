@@ -13,22 +13,22 @@ public class Resultados
 			archivo.createNewFile();
 			FileWriter escritor = new FileWriter(archivo);
 			PrintWriter pw = new PrintWriter(escritor);
-			pw.printf("y\t");
-			pw.printf("z\t");
-			pw.printf("|\ty<->(z|z)");
-			pw.printf("%n------------------------------------------------------%n");
+			pw.printf("p\t");
+			pw.printf("q\t");
+			pw.printf("|\tp->q");
+			pw.printf("%n----------------------------------%n");
 			pw.printf("f\t");
 			pw.printf("f\t");
-			pw.printf("|\t%b%n------------------------------------------------------%n",(true && true));
+			pw.printf("|\t%n----------------------------------%n");
 			pw.printf("f\t");
 			pw.printf("v\t");
-			pw.printf("|\t%b%n------------------------------------------------------%n",(true && true));
+			pw.printf("|\t%n----------------------------------%n");
 			pw.printf("v\t");
 			pw.printf("f\t");
-			pw.printf("|\t%b%n------------------------------------------------------%n",(true && true));
+			pw.printf("|\t%n----------------------------------%n");
 			pw.printf("v\t");
 			pw.printf("v\t");
-			pw.printf("|\t%b%n------------------------------------------------------%n",(true && true));
+			pw.printf("|\t%n----------------------------------%n");
 			escritor.close();
 		}
 		catch(IOException ev)
