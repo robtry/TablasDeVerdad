@@ -14,6 +14,9 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.io.IOException;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.util.Arrays;
 class TablasVerdad extends JFrame
 {
@@ -192,8 +195,8 @@ class TablasVerdad extends JFrame
 			btnSE.addActionListener(new SEpress());
 			btnParent.addActionListener(new AbrirParent());
 			btnOutParent.addActionListener(new SalirParent());
-			btnCalcular.addActionListener(new Validacion());
-			//btnMostrar.addActionListener(new Calcular());
+			btnCalcular.addActionListener(new Calcular());
+			btnMostrar.addActionListener(new Mostrar());
 		/* ======================================== */
 	}
 	/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -203,18 +206,33 @@ class TablasVerdad extends JFrame
 	/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	~~~~~~~~~CREACIÓN DE MÉTODOS PARA LOS CONTROLES~~~~~~~~~~
 	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-	public class Validacion implements ActionListener
+	public class Calcular implements ActionListener
 	{
 		public void actionPerformed(ActionEvent e)
 		{
 			try
 			{
 				File archivo;
-				archivo = new File("Resultados.txt");
+				archivo = new File("Resultados.java");
 				archivo.createNewFile();
 				FileWriter escritor = new FileWriter(archivo);
 				PrintWriter pw = new PrintWriter(escritor);
 				String textExport = "";
+				pw.printf("import java.io.File;%n");
+				pw.printf("import java.io.FileWriter;%n");
+				pw.printf("import java.io.PrintWriter;%n");
+				pw.printf("import java.io.IOException;%n");
+				pw.printf("public class Resultados");
+				pw.printf("%n{");
+				pw.printf("%n\tpublic static void main(String[] args)");
+				pw.printf("%n\t{");
+				pw.printf("%n\t\ttry");
+				pw.printf("%n\t\t{");
+				pw.printf("%n\t\t\tFile archivo;");
+				pw.printf("%n\t\t\tarchivo = new File(\"Resultados.txt\");");
+				pw.printf("%n\t\t\tarchivo.createNewFile();");
+				pw.printf("%n\t\t\tFileWriter escritor = new FileWriter(archivo);");
+				pw.printf("%n\t\t\tPrintWriter pw = new PrintWriter(escritor);");				
 				/* === Reuperar letras ===*/
 					int[] prop = new int[28];// se guardaran las letars rescatadas
 					int cont=0;// auxiliar para iterar a prop[]
@@ -279,7 +297,7 @@ class TablasVerdad extends JFrame
 						{
 							//ps quien es
 							//System.out.printf("%c\t",prop[i]);
-							pw.printf("%c\t",prop[i]);
+							pw.printf("%n\t\t\tpw.printf(\"%c\\t\");",prop[i]);
 							textExport += "----";
 
 
@@ -310,15 +328,15 @@ class TablasVerdad extends JFrame
 						}
 					}
 					//System.out.println();
-					pw.printf("|\t%s", funcion);
+					//pw.printf("|\t%s", funcion);
 					textExport += "----";
 					for (int i=0;i<funcion.length();i++)
 					{
 						textExport += "-"	;
 					}
 					textExport += "----";
-					pw.printf("%n%s",textExport);
-					pw.printf("%n");
+					//pw.printf("%n%s",textExport);
+					//pw.printf("%n");
 					//valores en la matriz
 					for (int i=0; i<valoresVerdad.length;i++ )
 					{
@@ -327,27 +345,56 @@ class TablasVerdad extends JFrame
 							//System.out.print(valoresVerdad[i][j]+"\t");
 							if(valoresVerdad[i][j]==true)
 							{
-								pw.printf("v\t");
+								//pw.printf("v\t");
 							}
 							else
 							{
-								pw.printf("f\t");
+								//pw.printf("f\t");
 							}
 						}
 						//System.out.println();
 						/*============================*/
 						boolean finalres = false;
+						
 						/*============================*/
-						pw.printf("|\t%b%n%s%n",finalres,textExport);
+						//pw.printf("|\t%b%n%s%n",finalres,textExport);
 					}
 					//System.out.println();
 
 				/* ======================= */
+				pw.printf("%n\t\t\tescritor.close();");
+				pw.printf("%n\t\t}");
+				pw.printf("%n\t\tcatch(IOException ev)");
+				pw.printf("%n\t\t{");
+				pw.printf("%n\t\t\tev.printStackTrace();");				
+				pw.printf("%n\t\t}");
+				pw.printf("%n\t}");
+				pw.printf("%n}");
 				escritor.close();
+				btnMostrar.setEnabled(true);
 			}
 			catch(IOException ev)
 			{
 				ev.printStackTrace();
+			}
+
+			abrirResultados();
+		}
+	}
+
+	public class Mostrar implements ActionListener
+	{
+		public void actionPerformed(ActionEvent e)
+		{
+			abrirResultados();
+
+			try
+			{
+				Runtime.getRuntime().exec(new String[] {"xdg-open","Resultados.txt"});
+			}
+			catch (IOException es)
+			{
+				es.printStackTrace();
 			}
 		}
 	}
@@ -1309,6 +1356,32 @@ class TablasVerdad extends JFrame
 			btnX.setEnabled(true);
 			btnY.setEnabled(true);
 			btnZ.setEnabled(true);
+		}
+
+		public void abrirResultados()
+		{
+			try
+			{
+				Process p = Runtime.getRuntime().exec("javac Resultados.java");
+				Process p2 = Runtime.getRuntime().exec("java Resultados");
+				BufferedReader in = new BufferedReader(new InputStreamReader(p2.getInputStream()));
+
+				OutputStream out = p2.getOutputStream();
+
+				String line = null;
+				while ((line = in.readLine()) != null)
+				{
+					 // line = in.read();
+					 System.out.println(line);
+				}
+				BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
+				System.out.println(input);
+	
+			} 
+			catch (IOException ep)
+			{
+				ep.printStackTrace();
+			}
 		}
 	/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	~~~~~~~~~~~~~~~~~~~FIN MÉTODOS AUXILIARES~~~~~~~~~~~~~~~~
