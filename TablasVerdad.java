@@ -22,7 +22,7 @@ class TablasVerdad extends JFrame
 {
 	boolean modoPro = false, estoyAdentroDeParent = false;
 	int parentClosetoIgnore=0;
-	String funcion = "";
+	String funcion = "", os =System.getProperty("os.name");
 
 	public static void main(String[] args) throws Exception
 	{
@@ -298,6 +298,7 @@ class TablasVerdad extends JFrame
 							//ps quien es
 							//System.out.printf("%c\t",prop[i]);
 							pw.printf("%n\t\t\tpw.printf(\"%c\\t\");",prop[i]);
+
 							textExport += "----";
 
 
@@ -328,15 +329,14 @@ class TablasVerdad extends JFrame
 						}
 					}
 					//System.out.println();
-					//pw.printf("|\t%s", funcion);
+					pw.printf("%n\t\t\tpw.printf(\"|\\t%s\");", funcion);
 					textExport += "----";
 					for (int i=0;i<funcion.length();i++)
 					{
-						textExport += "-"	;
+						textExport += "----"	;
 					}
-					textExport += "----";
-					//pw.printf("%n%s",textExport);
-					//pw.printf("%n");
+					textExport += "------";
+					pw.printf("%n\t\t\tpw.printf(\"%%n%s%%n\");",textExport);
 					//valores en la matriz
 					for (int i=0; i<valoresVerdad.length;i++ )
 					{
@@ -345,19 +345,18 @@ class TablasVerdad extends JFrame
 							//System.out.print(valoresVerdad[i][j]+"\t");
 							if(valoresVerdad[i][j]==true)
 							{
-								//pw.printf("v\t");
+								pw.printf("%n\t\t\tpw.printf(\"v\\t\");");
 							}
 							else
 							{
-								//pw.printf("f\t");
+								pw.printf("%n\t\t\tpw.printf(\"f\\t\");");
 							}
 						}
 						//System.out.println();
 						/*============================*/
-						boolean finalres = false;
-						
+						String cadenaBooleana = "(true && true)";
 						/*============================*/
-						//pw.printf("|\t%b%n%s%n",finalres,textExport);
+						pw.printf("%n\t\t\tpw.printf(\"|\\t%%b%%n%s%%n\",%s);",textExport,cadenaBooleana);
 					}
 					//System.out.println();
 
@@ -390,7 +389,19 @@ class TablasVerdad extends JFrame
 
 			try
 			{
-				Runtime.getRuntime().exec(new String[] {"xdg-open","Resultados.txt"});
+				if (os.equals("Mac OS X"))
+				{
+					Runtime.getRuntime().exec(new String[]{"open","Resultados.txt"});
+				}
+				else if (os.equals("Linux"))
+				{
+					Runtime.getRuntime().exec(new String[]{"xdg-open","Resultados.txt"});
+				}
+				else if(os.equals("Windows")) 
+				{
+					//Runtime.getRuntime().exec(new String[]{"","Resultados.txt"});
+				}
+				
 			}
 			catch (IOException es)
 			{
@@ -1254,6 +1265,7 @@ class TablasVerdad extends JFrame
 			funcion = "";
 			parentClosetoIgnore = 0;
 			btnOutParent.setEnabled(false);
+			btnMostrar.setEnabled(false);
 		}
 
 		public void modoProf()
@@ -1328,6 +1340,7 @@ class TablasVerdad extends JFrame
 
 		public void habilitaLetras()
 		{
+			btnCalcular.setEnabled(false);
 			btnNOT.setEnabled(true);
 			btnParent.setEnabled(true);
 			btnA.setEnabled(true);
