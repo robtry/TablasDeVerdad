@@ -292,6 +292,8 @@ class TablasVerdad extends JFrame
 					int aux=(int)n/2,aux2cont=0,indiceletraAux=0;
 					boolean turnar=false;
 					boolean[][] valoresVerdad = new boolean[(int)n][n0];
+					System.out.print("filas: "+ n);
+					System.out.println("\tcolumnas: "+ n0);
 
 					for (int i=0;i<prop.length;i++)
 					{
@@ -333,6 +335,7 @@ class TablasVerdad extends JFrame
 					//System.out.println();
 					pw.printf("%n\t\t\tpw.printf(\"|\\t%s\");", funcion);
 					textExport += "----";
+					//ver si se puede hacer o no y agregar mas espacio al ----
 					for (int i=0;i<funcion.length();i++)
 					{
 						if(funcion.charAt(i)=='>' || funcion.charAt(i)=='<')
@@ -341,7 +344,7 @@ class TablasVerdad extends JFrame
 						}
 						textExport += "----"	;
 					}
-					textExport += "------";
+
 					pw.printf("%n\t\t\tpw.printf(\"%%n%s%%n\");",textExport);
 					//valores en la matriz
 					for (int i=0; i<valoresVerdad.length;i++ )
@@ -365,6 +368,7 @@ class TablasVerdad extends JFrame
 								{
 									if(Character.isLetter(funcion.codePointAt(k)))
 									{
+										cadenaBooleana = "";
 										cadenaBooleana += Boolean.toString(valoresVerdad[i][j]);
 									}
 									else if(funcion.charAt(k)=='&')
@@ -387,8 +391,7 @@ class TablasVerdad extends JFrame
 								}
 							}
 							//else ps no se va a poder hacer :(
-							
-							
+							//no hay cadena booleana que evaluar
 						/*============================*/
 						}
 						//aqui va un salto de linea
@@ -1323,6 +1326,8 @@ class TablasVerdad extends JFrame
 			btnMostrar.setEnabled(true);
 			lblModo.setText("Modo actual: PROFESIONAL      ");
 			funcion = "";
+			JOptionPane.showMessageDialog(null,"Por el momento esto no hace nada :( \n", "Modo Profesional",
+                JOptionPane.WARNING_MESSAGE);
 		}
 
 		public void deshabilitaOperadores()
