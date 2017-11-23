@@ -338,15 +338,22 @@ class TablasVerdad extends JFrame
 					}
 					//System.out.println();
 					pw.printf("%n\t\t\tpw.printf(\"|\\t%s\");", funcion);
-					textExport += "----";
+					textExport += "-----";
 					//ver si se puede hacer o no y agregar mas espacio al ----
 					for (int i=0;i<funcion.length();i++)
 					{
-						if(funcion.charAt(i)=='>' || funcion.charAt(i)=='<')
+						//if(funcion.charAt(i)=='>' || funcion.charAt(i)=='<')
+						//{
+						//	sePuedeHacer = false;
+						//}
+						if(funcion.length()<=3)
 						{
-							sePuedeHacer = false;
+							textExport += "---------";
 						}
-						textExport += "----";
+						else
+						{
+							textExport += "----";
+						}
 					}
 
 					pw.printf("%n\t\t\tpw.printf(\"%%n%s%%n\");",textExport);
@@ -472,6 +479,25 @@ class TablasVerdad extends JFrame
 			else
 			{
 				modoCreativo();
+				try
+				{
+					File file = new File("Resultados.java");
+					if(file.delete()){
+						System.out.println(file.getName() + " Listo para nuevo");
+					}else{
+						System.out.println("Algo podría ir mal");
+					}
+					file = new File("Resultados.txt");
+					if(file.delete()){
+						System.out.println(file.getName() + " Listo para nuevo");
+					}else{
+						System.out.println("Algo podría ir mal");
+					}
+				}
+				catch(Exception eas)
+				{
+					eas.printStackTrace();
+				}
 			}
 		}
 	}
