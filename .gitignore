@@ -1,3 +1,6 @@
+Resultados.txt
+Resultados.java
+
 # Compiled class file
 *.class
 
@@ -11,7 +14,7 @@
 .mtj.tmp/
 
 # Package Files #
-*.jar
+
 *.war
 *.ear
 *.zip

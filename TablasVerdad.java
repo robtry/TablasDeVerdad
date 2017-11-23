@@ -7,6 +7,10 @@
 #>= Start Data: 12-10-17
 #>= Last Update: 22-10-17
 #>= Aditional Comments: El modo profesional es solo una idea
+jar cfm Tablas.jar manifest.txt *.class
+en manifest.txt
+	Main-Class: TablasVerdad
+java -jar archivo.jar
 ===================================================*/
 import javax.swing.*;
 import java.awt.event.*;
@@ -292,8 +296,8 @@ class TablasVerdad extends JFrame
 					int aux=(int)n/2,aux2cont=0,indiceletraAux=0;
 					boolean turnar=false;
 					boolean[][] valoresVerdad = new boolean[(int)n][n0];
-					System.out.print("filas: "+ n);
-					System.out.println("\tcolumnas: "+ n0);
+					//System.out.print("filas: "+ n);
+					//System.out.println("\tcolumnas: "+ n0);
 
 					for (int i=0;i<prop.length;i++)
 					{
@@ -342,7 +346,7 @@ class TablasVerdad extends JFrame
 						{
 							sePuedeHacer = false;
 						}
-						textExport += "---------";
+						textExport += "----";
 					}
 
 					pw.printf("%n\t\t\tpw.printf(\"%%n%s%%n\");",textExport);
@@ -1326,8 +1330,10 @@ class TablasVerdad extends JFrame
 			btnMostrar.setEnabled(true);
 			lblModo.setText("Modo actual: PROFESIONAL      ");
 			funcion = "";
-			JOptionPane.showMessageDialog(null,"Por el momento esto no hace nada :( \n", "Modo Profesional",
-                JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(null,"Este modo no esta disponible en esta versión \n Intente en un versión posterior \n Por ahora no podrá hacer nada", "Modo Profesional",
+				JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null,"Regrese al Modo Creativo", "Modo Profesional",
+				JOptionPane.WARNING_MESSAGE);
 		}
 
 		public void deshabilitaOperadores()
