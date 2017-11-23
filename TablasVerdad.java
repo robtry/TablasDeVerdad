@@ -342,7 +342,7 @@ class TablasVerdad extends JFrame
 						{
 							sePuedeHacer = false;
 						}
-						textExport += "----"	;
+						textExport += "---------";
 					}
 
 					pw.printf("%n\t\t\tpw.printf(\"%%n%s%%n\");",textExport);
@@ -360,7 +360,7 @@ class TablasVerdad extends JFrame
 							{
 								pw.printf("%n\t\t\tpw.printf(\"f\\t\");");
 							}
-						/*============================*/
+						/*============================
 							if(sePuedeHacer)
 							{
 								// si se pudo hacer
@@ -395,14 +395,14 @@ class TablasVerdad extends JFrame
 						/*============================*/
 						}
 						//aqui va un salto de linea
-						if(sePuedeHacer)
-						{
-							pw.printf("%n\t\t\tpw.printf(\"|\\t%%b%%n%s%%n\",%s);",textExport,cadenaBooleana);
-						}
-						else
-						{
+						//if(sePuedeHacer)
+						//{
+						//	pw.printf("%n\t\t\tpw.printf(\"|\\t%%b%%n%s%%n\",%s);",textExport,cadenaBooleana);
+						//}
+						//else
+						//{
 							pw.printf("%n\t\t\tpw.printf(\"|\\t%%n%s%%n\");",textExport);
-						}
+						//}
 
 					}
 					//System.out.println();
@@ -444,9 +444,9 @@ class TablasVerdad extends JFrame
 				{
 					Runtime.getRuntime().exec(new String[]{"xdg-open","Resultados.txt"});
 				}
-				else if(os.equals("Windows")) 
+				else if(os.contains("Windows")) 
 				{
-					//Runtime.getRuntime().exec(new String[]{"","Resultados.txt"});
+					Runtime.getRuntime().exec(new String[]{"notepad","Resultados.txt"});
 				}
 				
 			}
